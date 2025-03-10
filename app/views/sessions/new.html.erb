@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Log In</h1>
+
+  <% if flash[:alert] %>
+    <div class="error-message">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_with(url: login_path, local: true) do |form| %>
+    <div class="field">
+      <%= form.label :username %>
+      <%= form.text_field :username, required: true, placeholder: "Enter your username" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+      <%= form.password_field :password, required: true, placeholder: "Enter your password" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Log In" %>
+    </div>
+  <% end %>
+
+  <div class="links">
+    Don't have an account yet? <%= link_to "Sign up", signup_path %>
+  </div>
+</div> 
