@@ -1,0 +1,41 @@
+<% if @user.nil? %>
+  <div class="error-messages">
+    <p>User is nil. Session user_id: <%= session[:user_id] %></p>
+  </div>
+<% else %>
+  <!-- Rest of your view code -->
+<% end %>
+
+<div class="container profile-container">
+  <div class="profile-header">
+    <h1>Welcome, <%= @user.username %>!</h1>
+    <%= button_to "Sign Out", "#", method: :delete, class: "sign-out-button", form: { data: { turbo_confirm: "Are you sure you want to sign out?" } } %>
+  </div>
+
+  <div class="profile-card">
+    <div class="profile-section">
+      <h2>Your Profile</h2>
+      <div class="profile-details">
+        <div class="profile-detail">
+          <span class="detail-label">Username:</span>
+          <span class="detail-value"><%= @user.username %></span>
+        </div>
+        <div class="profile-detail">
+          <span class="detail-label">Account created:</span>
+          <span class="detail-value"><%= @user.created_at.strftime("%B %d, %Y") %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="profile-section">
+      <h2>Your Habits</h2>
+      <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <p>You don't have any habits yet. Start tracking by adding your first habit.</p>
+        <%= link_to "Add Your First Habit", "#", class: "primary-button" %>
+      </div>
+    </div>
+  </div>
+</div>
