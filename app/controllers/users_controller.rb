@@ -21,9 +21,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-    # Add authorization check to ensure user is logged in
-    redirect_to signup_path, alert: "Please sign up or log in." unless @user
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    else
+      redirect_to signup_path, alert: "Please sign up or log in first."
+    end
   end
 
   private
