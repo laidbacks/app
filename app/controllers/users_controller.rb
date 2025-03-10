@@ -4,4 +4,8 @@ class UsersController < ApplicationController
 
   def create
   end
+  
+  def show
+    render json: current_user
+  end
 end
