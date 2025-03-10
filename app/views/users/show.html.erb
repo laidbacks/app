@@ -1,3 +1,11 @@
+<% if @user.nil? %>
+  <div class="error-messages">
+    <p>User is nil. Session user_id: <%= session[:user_id] %></p>
+  </div>
+<% else %>
+  <!-- Rest of your view code -->
+<% end %>
+
 <div class="container profile-container">
   <div class="profile-header">
     <h1>Welcome, <%= @user.username %>!</h1>

@@ -21,9 +21,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    # More explicit error handling and debugging
+    if session[:user_id].present?
+      @user = User.find_by(id: session[:user_id])
+      if @user.nil?
+        # This indicates the user ID in the session is invalid
+        Rails.logger.error("Failed to find user with ID #{session[:user_id]}")
+        redirect_to signup_path, alert: "User not found. Please sign up or log in."
+      end
     else
+      # No user ID in the session
       redirect_to signup_path, alert: "Please sign up or log in first."
     end
   end
@@ -43,9 +50,5 @@ class UsersController < ApplicationController
     # Using JWT for token generation
     payload = { user_id: user.id }
     JWT.encode(payload, Rails.application.credentials.secret_key_base)
-  end
-  
-  def show
-    render json: current_user
   end
 end
