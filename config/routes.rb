@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'pages#signup'
   post '/signup', to: 'users#create'
+
+  get '/profile', to: 'users#show'
 end
