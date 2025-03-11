@@ -1,3 +1,3 @@
 git add .
-git commit -m "Feature: User model Test"
+git commit -m "Feature: Sidebar"
 git push -u origin
