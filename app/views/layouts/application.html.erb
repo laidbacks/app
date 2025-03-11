@@ -35,14 +35,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <!-- Add this inside the body tag, typically before the yield -->
-    <% if flash[:notice] %>
-      <div class="notice"><%= flash[:notice] %></div>
-    <% end %>
-    <% if flash[:alert] %>
-      <div class="alert"><%= flash[:alert] %></div>
-    <% end %>
-    <%= yield %>
+  <body class="sidebar-expanded">
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <%= render "shared/sidebar" %>
+      
+      <!-- Sidebar overlay for mobile -->
+      <div class="sidebar-overlay" data-action="click->sidebar#toggle"></div>
+      
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <% if flash[:notice] %>
+          <div class="notice"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+          <div class="alert"><%= flash[:alert] %></div>
+        <% end %>
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>
