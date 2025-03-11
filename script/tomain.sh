@@ -1,5 +1,5 @@
 git add .
-git commit -m "Designed Navigation Bar"
+git commit -m "Feature: "
 git push -u origin
 git checkout main
 git pull
