@@ -1,0 +1,460 @@
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Transform Your Life with <span class="brand-name">HabitFlow</span></h1>
+      <p class="hero-subtitle">Build lasting habits, track your progress, and achieve your goals with our science-backed approach.</p>
+      <div class="hero-buttons">
+        <%= link_to "Get Started Free", signup_path, class: "btn-primary" %>
+        <%= link_to "Sign In", login_path, class: "btn-secondary" %>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="device-mockup">
+        <img src="https://placehold.co/600x400/6e8efb/ffffff?text=HabitFlow+Dashboard" alt="HabitFlow App Dashboard Mockup" class="mockup-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2 class="section-title">Why Choose HabitFlow?</h2>
+    <p class="section-subtitle">Our science-based approach makes habit building simple and effective</p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3 class="feature-title">Habit Stacking</h3>
+        <p class="feature-description">Connect new habits to existing routines to make them stick automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Visual Progress</h3>
+        <p class="feature-description">Track your habits with beautiful visuals that motivate you to keep going.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3 class="feature-title">Behavioral Science</h3>
+        <p class="feature-description">Built on proven psychological principles that make habit formation easier.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3 class="feature-title">Achievement System</h3>
+        <p class="feature-description">Earn badges and celebrate milestones to stay motivated long-term.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <h2 class="section-title">What Our Users Say</h2>
+    
+    <div class="testimonials-container">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <p>"HabitFlow transformed how I approach my daily routine. I've finally been able to stick with meditation for over 90 days!"</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <!-- Placeholder avatar -->
+            <div class="avatar-circle">S</div>
+          </div>
+          <div class="author-info">
+            <p class="author-name">Sarah J.</p>
+            <p class="author-title">Yoga Teacher</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <p>"The visual streak counter keeps me motivated to maintain my workout routine. I've never been this consistent before."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <!-- Placeholder avatar -->
+            <div class="avatar-circle">M</div>
+          </div>
+          <div class="author-info">
+            <p class="author-name">Michael T.</p>
+            <p class="author-title">Software Engineer</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <p>"As a busy parent, HabitFlow helps me prioritize self-care habits that I used to neglect. Game changer!"</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <!-- Placeholder avatar -->
+            <div class="avatar-circle">J</div>
+          </div>
+          <div class="author-info">
+            <p class="author-name">Jessica R.</p>
+            <p class="author-title">Marketing Director</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="quote-section">
+    <div class="quote-container">
+      <blockquote class="inspirational-quote">
+        "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+      </blockquote>
+      <p class="quote-author">— Aristotle</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">Start Building Better Habits Today</h2>
+      <p class="cta-description">Join thousands of others who are transforming their lives one habit at a time.</p>
+      <%= link_to "Sign Up Free", signup_path, class: "btn-large" %>
+      <p class="cta-subtext">No credit card required. Free forever plan available.</p>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* Landing Page Styles */
+  .landing-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f5f7ff 0%, #e3e9ff 100%);
+    min-height: 80vh;
+    flex-wrap: wrap;
+  }
+
+  .hero-content {
+    max-width: 600px;
+    margin-right: 2rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .brand-name {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-primary, .btn-secondary, .btn-large {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(110, 142, 251, 0.6);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: #6e8efb;
+    border: 2px solid #6e8efb;
+  }
+
+  .btn-secondary:hover {
+    background: #f5f7ff;
+    transform: translateY(-3px);
+  }
+
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+  }
+
+  .device-mockup {
+    position: relative;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+  }
+
+  .mockup-image {
+    border-radius: 12px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: 5rem 2rem;
+    background-color: white;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .feature-description {
+    color: #666;
+    font-size: 1rem;
+  }
+
+  /* Testimonials Section */
+  .testimonials-section {
+    padding: 5rem 2rem;
+    background-color: #f5f7ff;
+    text-align: center;
+  }
+
+  .testimonials-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .testimonial-content {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-content p {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+  }
+
+  .author-avatar {
+    margin-right: 1rem;
+  }
+
+  .avatar-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .author-info {
+    text-align: left;
+  }
+
+  .author-name {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .author-title {
+    color: #666;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  /* Quote Section */
+  .quote-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    text-align: center;
+    color: white;
+  }
+
+  .quote-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .inspirational-quote {
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .quote-author {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 5rem 2rem;
+    background-color: white;
+    text-align: center;
+  }
+
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .cta-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .btn-large {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
+  }
+
+  .btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(110, 142, 251, 0.6);
+  }
+
+  .cta-subtext {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .hero-section {
+      flex-direction: column;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-content {
+      margin-right: 0;
+      margin-bottom: 3rem;
+    }
+
+    .hero-buttons {
+      justify-content: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .inspirational-quote {
+      font-size: 1.5rem;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+    }
+  }
+</style> 

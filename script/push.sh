@@ -1,3 +1,3 @@
 git add .
-git commit -m "Designed Navigation Bar"
+git commit -m "Feature: Main Page"
 git push -u origin
