@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#home"
+  root "pages#signup"
 
   get '/signup', to: 'users#signup'
   post '/signup', to: 'users#create'
