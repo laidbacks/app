@@ -142,7 +142,7 @@ module DatabaseTestHelper
       
       if index_name
         assert_match(/Index.*#{index_name}/i, explain, 
-          "Query didn't use the expected index '#{index_name}'"
+          "Query didn't use the expected index '#{index_name}'")
       else
         assert_match(/Index Scan/i, explain, "Query didn't use any index")
       end
