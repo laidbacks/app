@@ -1,9 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  username: MyString
-  password_digest: MyString
+# Sample user fixtures for testing
+# Each fixture has a name (admin, regular_user) followed by attributes
 
-two:
-  username: MyString
-  password_digest: MyString
+admin:
+  username: admin_user
+  password_digest: <%= BCrypt::Password.create('admin123') %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+regular_user:
+  username: regular_joe
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+# Using ERB to generate multiple fixtures dynamically
+<% 5.times do |n| %>
+user_<%= n %>:
+  username: test_user_<%= n %>
+  password_digest: <%= BCrypt::Password.create("password#{n}") %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+<% end %>
