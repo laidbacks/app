@@ -13,7 +13,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-<<<<<<< HEAD
   test "should get create" do
     post signup_path, params: { 
       user: { 
@@ -24,7 +23,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :redirect
     assert_redirected_to profile_path
-=======
   test "should get signup page" do
     get signup_path
     assert_response :success
@@ -74,6 +72,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get profile_path
     assert_redirected_to login_path
     assert_equal "You must be logged in to access this page", flash[:alert]
->>>>>>> 2c152c420bb5904bb664cd3e9e4bc5069272e2a3
   end
 end
