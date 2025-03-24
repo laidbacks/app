@@ -29,8 +29,7 @@ class MigrationTest < ActiveSupport::TestCase
       
       # Get migration context
       migration_context = ActiveRecord::MigrationContext.new(
-        ActiveRecord::Migrator.migrations_paths,
-        ActiveRecord::SchemaMigration
+        ActiveRecord::Migrator.migrations_paths
       )
       
       # Verify all migrations were applied
@@ -79,7 +78,9 @@ class MigrationTest < ActiveSupport::TestCase
       # Try rolling back the latest migration
       assert_nothing_raised do
         # Roll back one migration
-        ActiveRecord::Tasks::DatabaseTasks.rollback(step: 1)
+        ActiveRecord::MigrationContext.new(
+          ActiveRecord::Migrator.migrations_paths
+        ).rollback(1)
       end
       
       # Verify rollback worked

@@ -23,6 +23,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :redirect
     assert_redirected_to profile_path
+  end
+  
   test "should get signup page" do
     get signup_path
     assert_response :success
