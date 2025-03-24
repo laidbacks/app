@@ -15,13 +15,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#home"
 
-  get '/signup', to: 'users#signup'
-  post '/signup', to: 'users#create'
+  get "/signup", to: "users#signup"
+  post "/signup", to: "users#create"
 
-  get '/profile', to: 'users#show'
-  
+  get "/profile", to: "users#show"
+
   # Sessions routes for login/logout
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 end

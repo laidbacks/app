@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def signup
   end
-  
+
   def home
     if logged_in?
       # Get the user's habits (future functionality)
@@ -13,7 +13,7 @@ class PagesController < ApplicationController
         { name: "Exercise", streak: 21, status: "pending" },
         { name: "Drink Water", streak: 30, status: "completed" }
       ]
-      
+
       # Quote of the day
       @quotes = [
         "The secret of getting ahead is getting started. – Mark Twain",
@@ -24,7 +24,7 @@ class PagesController < ApplicationController
         "Champions keep playing until they get it right. – Billie Jean King"
       ]
       @quote = @quotes.sample
-      
+
       render :dashboard
     else
       # Show the landing page for non-logged in users

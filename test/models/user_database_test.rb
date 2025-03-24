@@ -17,7 +17,7 @@ class UserDatabaseTest < ActiveSupport::TestCase
   test "database enforces username uniqueness" do
     # Try to create user with duplicate username
     duplicate_user = User.new(username: "testuser1", password: "different123")
-    
+
     # Assert that the database raises an exception when saving
     assert_raises(ActiveRecord::RecordNotUnique) do
       # Disable temporary the uniqueness validation to test the DB constraint
@@ -54,17 +54,17 @@ class UserDatabaseTest < ActiveSupport::TestCase
   # Test transactions
   test "transactions can be rolled back" do
     initial_count = User.count
-    
+
     # Start a transaction
     User.transaction do
       User.create(username: "transaction_test", password: "transaction123")
       # Verify user was created within transaction
       assert_equal initial_count + 1, User.count
-      
+
       # Roll back the transaction
       raise ActiveRecord::Rollback
     end
-    
+
     # Verify the user count is back to initial (transaction was rolled back)
     assert_equal initial_count, User.count
   end
@@ -74,14 +74,14 @@ class UserDatabaseTest < ActiveSupport::TestCase
   test "updated_at is automatically set by database" do
     old_updated_at = @user1.updated_at
     sleep(1) # Ensure time difference
-    
+
     # Update the user
     @user1.username = "modified_username"
     @user1.save
-    
+
     # Reload from database to get fresh values
     @user1.reload
-    
+
     # Check that updated_at was changed by the database
     assert_not_equal old_updated_at, @user1.updated_at
   end
@@ -92,10 +92,10 @@ class UserDatabaseTest < ActiveSupport::TestCase
   # test "deleting user cascades to related posts" do
   #   # Create a post belonging to user1
   #   post = @user1.posts.create(title: "Test Post", content: "Test Content")
-  #   
+  #
   #   # Delete the user
   #   @user1.destroy
-  #   
+  #
   #   # Assert the post was also deleted (if you set up cascade deletes)
   #   assert_raises(ActiveRecord::RecordNotFound) do
   #     post.reload
@@ -106,12 +106,12 @@ class UserDatabaseTest < ActiveSupport::TestCase
   test "reconnects after connection interruption" do
     # Simulate a connection interruption
     ActiveRecord::Base.connection.disconnect!
-    
+
     # Try to use the connection again
     assert_nothing_raised do
       User.count
     end
-    
+
     # Connection should be reestablished automatically
     assert ActiveRecord::Base.connection.active?
   end
@@ -120,10 +120,10 @@ class UserDatabaseTest < ActiveSupport::TestCase
   test "can execute raw SQL queries" do
     # Execute raw SQL
     result = ActiveRecord::Base.connection.execute("SELECT COUNT(*) as user_count FROM users")
-    
+
     # Extract the count from the result (SQLite specific)
     count = result.first["user_count"]
-    
+
     # Compare with the expected count from ActiveRecord
     assert_equal User.count, count
   end
@@ -132,14 +132,14 @@ class UserDatabaseTest < ActiveSupport::TestCase
   test "prepared statements prevent SQL injection" do
     # Malicious input attempting SQL injection
     malicious_username = "'; DROP TABLE users; --"
-    
+
     # Try to find a user with this username (should use prepared statements)
     safe_result = User.where(username: malicious_username).first
-    
+
     # The query should execute safely without errors
     assert_nil safe_result
-    
+
     # Verify the users table still exists and has our data
-    assert_equal 2, User.where(username: ["testuser1", "testuser2"]).count
+    assert_equal 2, User.where(username: [ "testuser1", "testuser2" ]).count
   end
-end 
+end
