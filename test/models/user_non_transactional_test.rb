@@ -62,10 +62,11 @@ class UserNonTransactionalTest < ActiveSupport::TestCase
     
     # Or simulate it with a direct query to verify the user exists in the database
     # not just in the current connection's transaction
-    new_connection = ActiveRecord::Base.establish_connection
-    assert new_connection.connection.select_value(
+    ActiveRecord::Base.establish_connection
+    assert_equal 1, ActiveRecord::Base.connection.select_value(
       "SELECT COUNT(*) FROM users WHERE username = 'non_transactional_user'"
-    ).to_i > 0
-    ActiveRecord::Base.establish_connection # reconnect to default
+    ).to_i
+    
+    # No need to reconnect as we're just using the same connection
   end
 end 

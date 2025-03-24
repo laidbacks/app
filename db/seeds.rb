@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create admin user if it doesn't exist
+puts "Creating admin user..."
+admin = User.find_or_create_by(username: "admin") do |user|
+  user.password = "admin123"  # In production, use a secure password or env variable
+  puts "Admin user created"
+end
+
+puts "Seed data loaded successfully!"

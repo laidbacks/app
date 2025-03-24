@@ -7,7 +7,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    get users_create_url
-    assert_response :success
+    post signup_path, params: { 
+      user: { 
+        username: "testuser123", 
+        password: "password123",
+        password_confirmation: "password123"
+      } 
+    }
+    assert_response :redirect
+    assert_redirected_to profile_path
   end
 end

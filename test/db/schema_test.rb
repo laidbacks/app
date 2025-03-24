@@ -70,11 +70,23 @@ class SchemaTest < ActiveSupport::TestCase
     connection = ActiveRecord::Base.connection
     indexes = connection.indexes("users")
     
-    # Find index on username
-    username_index = indexes.find { |i| i.columns.include?("username") }
+    # Check if an index exists that includes the username column
+    username_indexed = indexes.any? do |index|
+      index.columns.include?("username")
+    end
     
-    # Check that username index exists and is unique
-    assert_not_nil username_index, "Index on username doesn't exist"
-    assert username_index.unique, "Index on username should be unique"
+    # If no index exists, let's see what indexes are available for debugging
+    unless username_indexed
+      available_indexes = indexes.map { |i| "#{i.name} on (#{i.columns.join(', ')})" }.join(", ")
+      puts "Available indexes: #{available_indexes}"
+    end
+    
+    assert username_indexed, "No index found on username column"
+    
+    # Only test uniqueness if an index exists to avoid nil error
+    if username_indexed
+      username_index = indexes.find { |i| i.columns.include?("username") }
+      assert username_index.unique, "Index on username should be unique"
+    end
   end
 end 

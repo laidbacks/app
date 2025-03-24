@@ -20,13 +20,17 @@ class UserDatabaseTest < ActiveSupport::TestCase
     
     # Assert that the database raises an exception when saving
     assert_raises(ActiveRecord::RecordNotUnique) do
-      # Use insert_all to bypass ActiveRecord validations and hit the DB directly
-      User.insert_all([{ 
-        username: "testuser1", 
-        password_digest: BCrypt::Password.create("different123"),
-        created_at: Time.current,
-        updated_at: Time.current
-      }])
+      # Disable temporary the uniqueness validation to test the DB constraint
+      User.skip_callback(:validate, :before, :validate_username_uniqueness, raise: false)
+      begin
+        # Insert directly into database to bypass ActiveRecord validations
+        ActiveRecord::Base.connection.execute(
+          "INSERT INTO users (username, password_digest, created_at, updated_at) VALUES ('testuser1', '#{BCrypt::Password.create("different123")}', '#{Time.current}', '#{Time.current}')"
+        )
+      ensure
+        # Re-enable the callback
+        User.set_callback(:validate, :before, :validate_username_uniqueness)
+      end
     end
   end
 

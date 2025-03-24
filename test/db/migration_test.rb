@@ -27,9 +27,16 @@ class MigrationTest < ActiveSupport::TestCase
         ActiveRecord::Tasks::DatabaseTasks.migrate
       end
       
+      # Get migration context
+      migration_context = ActiveRecord::MigrationContext.new(
+        ActiveRecord::Migrator.migrations_paths,
+        ActiveRecord::SchemaMigration
+      )
+      
       # Verify all migrations were applied
       current_version = ActiveRecord::Migrator.current_version
-      latest_version = ActiveRecord::Migrator.get_all_versions.max || 0
+      migrations = migration_context.migrations
+      latest_version = migrations.empty? ? 0 : migrations.max_by(&:version).version
       
       assert_equal latest_version, current_version, 
         "Not all migrations were applied. Current: #{current_version}, Latest: #{latest_version}"
@@ -48,12 +55,6 @@ class MigrationTest < ActiveSupport::TestCase
     # Skip in CI environment
     skip if ENV["CI"]
     
-    # Get all migration versions
-    versions = ActiveRecord::Migrator.get_all_versions
-    
-    # Skip if no migrations
-    skip if versions.empty?
-    
     # Create a new database connection for testing migrations
     config = ActiveRecord::Base.configurations.configs_for(env_name: Rails.env).first
     test_db_path = Rails.root.join("tmp", "rollback_test.sqlite3")
@@ -69,18 +70,22 @@ class MigrationTest < ActiveSupport::TestCase
       # Run all migrations
       ActiveRecord::Tasks::DatabaseTasks.migrate
       
-      # Get the latest version
-      latest_version = ActiveRecord::Migrator.get_all_versions.max || 0
+      # Get the current version after migrations
+      current_version = ActiveRecord::Migrator.current_version
+      
+      # Skip if no migrations were applied
+      skip if current_version == 0
       
       # Try rolling back the latest migration
       assert_nothing_raised do
-        ActiveRecord::Tasks::DatabaseTasks.migrate(version: previous_version(latest_version))
+        # Roll back one migration
+        ActiveRecord::Tasks::DatabaseTasks.rollback(step: 1)
       end
       
       # Verify rollback worked
-      current_version = ActiveRecord::Migrator.current_version
-      assert_not_equal latest_version, current_version, 
-        "Migration rollback failed. Still at version: #{current_version}"
+      new_version = ActiveRecord::Migrator.current_version
+      assert_not_equal current_version, new_version, 
+        "Migration rollback failed. Still at version: #{new_version}"
       
       # Try running the migration again
       assert_nothing_raised do
@@ -88,9 +93,9 @@ class MigrationTest < ActiveSupport::TestCase
       end
       
       # Verify migration worked
-      current_version = ActiveRecord::Migrator.current_version
-      assert_equal latest_version, current_version, 
-        "Migration re-run failed. At version: #{current_version}, expected: #{latest_version}"
+      final_version = ActiveRecord::Migrator.current_version
+      assert_equal current_version, final_version, 
+        "Migration re-run failed. At version: #{final_version}, expected: #{current_version}"
     ensure
       # Clean up
       ActiveRecord::Base.remove_connection
@@ -99,15 +104,5 @@ class MigrationTest < ActiveSupport::TestCase
       # Reconnect to original database
       ActiveRecord::Base.establish_connection
     end
-  end
-  
-  private
-  
-  # Helper to find the previous migration version
-  def previous_version(current_version)
-    versions = ActiveRecord::Migrator.get_all_versions.sort
-    index = versions.index(current_version)
-    return 0 if index == 0
-    versions[index - 1]
   end
 end 
