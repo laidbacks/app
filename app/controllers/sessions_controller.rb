@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(username: params[:username])
-    
+
     if user && user.authenticate(params[:password])
       # Login successful - set the user id in session
       session[:user_id] = user.id
@@ -22,4 +22,4 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_path, notice: "Logged out successfully!"
   end
-end 
+end
