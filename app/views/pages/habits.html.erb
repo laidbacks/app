@@ -1,0 +1,553 @@
+<% content_for :title, "Your Habits | HabitFlow" %>
+
+<div class="habits-container">
+  <div class="page-header">
+    <h1>Track Your Habits</h1>
+    <p class="tagline">Build consistency by tracking your daily progress.</p>
+  </div>
+  
+  <div class="content-layout">
+    <!-- Left side: Habit list -->
+    <div class="main-content">
+      <section class="habits-section" data-controller="habit-list">
+        <div class="section-header">
+          <h2>Your Habits</h2>
+          <button class="primary-button" id="addHabitBtn" data-action="click->habit-list#showAddHabitModal">+ Add New Habit</button>
+        </div>
+        
+        <div class="loading-indicator hidden" data-habit-list-target="loadingIndicator">
+          <div class="spinner"></div>
+          <p>Loading your habits...</p>
+        </div>
+        
+        <div class="empty-state" data-habit-list-target="emptyState">
+          <p>You don't have any habits yet. Start tracking by adding your first habit.</p>
+          <button class="primary-button" id="addFirstHabitBtn" data-action="click->habit-list#showAddHabitModal">Add Your First Habit</button>
+        </div>
+        
+        <div class="habits-container" data-habit-list-target="habitContainer">
+          <!-- Habit cards will be rendered here dynamically -->
+        </div>
+      </section>
+      
+      <!-- Add Habit Modal -->
+      <div id="addHabitModal" class="modal hidden" style="display: none;">
+        <div class="modal-content" data-controller="habit-form">
+          <div class="modal-header">
+            <h2>Add New Habit</h2>
+            <button class="close-modal" type="button" aria-label="Close">&times;</button>
+          </div>
+          
+          <form data-habit-form-target="form" data-action="submit->habit-form#submit" data-turbo="false">
+            <%= csrf_meta_tags %>
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            
+            <div class="form-group">
+              <label for="habitName">Habit Name</label>
+              <input type="text" id="habitName" name="habit[name]" data-habit-form-target="nameInput" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="habitDescription">Description (Optional)</label>
+              <textarea id="habitDescription" name="habit[description]" data-habit-form-target="descriptionInput"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="habitFrequency">Frequency</label>
+              <select id="habitFrequency" name="habit[frequency]" data-habit-form-target="frequencyInput">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            
+            <div class="error-container" data-habit-form-target="errorContainer"></div>
+            
+            <div class="form-actions">
+              <button type="button" class="secondary-button" data-action="click->habit-form#closeModal">Cancel</button>
+              <button type="submit" class="primary-button">Create Habit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right side: Stats and Calendar -->
+    <div class="side-content">
+      <!-- Calendar section -->
+      <section class="calendar-section" data-controller="habit-calendar" data-habit-calendar-habit-id-value="">
+        <h2>Weekly Progress</h2>
+        
+        <div class="loading-indicator hidden" data-habit-calendar-target="loadingIndicator">
+          <div class="spinner"></div>
+        </div>
+        
+        <div class="habit-calendar" data-habit-calendar-target="calendar">
+          <!-- Calendar will be rendered here dynamically -->
+        </div>
+      </section>
+      
+      <!-- Stats section -->
+      <section class="stats-section" data-controller="habit-stats" data-habit-stats-habit-id-value="">
+        <h2>Your Progress</h2>
+        
+        <div class="loading-indicator hidden" data-habit-stats-target="loadingIndicator">
+          <div class="spinner"></div>
+        </div>
+        
+        <div class="stats-container" data-habit-stats-target="statsContainer">
+          <div class="stat-card">
+            <h3>Current Streak</h3>
+            <div class="stat-value" data-habit-stats-target="currentStreakValue">0</div>
+            <div class="stat-label">days</div>
+          </div>
+          
+          <div class="stat-card">
+            <h3>Completion Rate</h3>
+            <div class="stat-value" data-habit-stats-target="completionRateValue">0%</div>
+            <div class="stat-label">this month</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Tips section -->
+      <section class="tips-section">
+        <h2>Habit Building Tips</h2>
+        <div class="tip-card">
+          <h3>Start Small</h3>
+          <p>Begin with easy habits that take less than two minutes to complete. This builds momentum.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Stack Habits</h3>
+          <p>Connect new habits to existing routines. For example, "After I brush my teeth, I will meditate for one minute."</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  // This script runs only once when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded - ensuring modal is hidden");
+    
+    // Force hide the modal on page load - defensive programming
+    const modal = document.getElementById('addHabitModal');
+    if (modal) {
+      // Always make sure the modal is hidden on initial page load
+      modal.classList.add('hidden');
+      modal.setAttribute('style', 'display: none !important;');
+      
+      // Remove any query parameters that might cause the modal to open
+      if (window.location.search) {
+        console.log("Found URL parameters, cleaning up...");
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+      
+      // After a short delay, remove the !important style to allow normal toggling
+      setTimeout(function() {
+        modal.removeAttribute('style');
+      }, 500);
+    }
+    
+    // Function to show the modal
+    function showModal() {
+      console.log("Show modal function called");
+      const modal = document.getElementById('addHabitModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    }
+    
+    // Function to hide the modal
+    function hideModal() {
+      console.log("Hide modal function called");
+      const modal = document.getElementById('addHabitModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+    
+    // Expose these functions globally so other components can use them
+    window.showAddHabitModal = showModal;
+    window.hideAddHabitModal = hideModal;
+    
+    // Add event listeners to buttons
+    const addHabitBtn = document.getElementById('addHabitBtn');
+    const addFirstHabitBtn = document.getElementById('addFirstHabitBtn');
+    
+    if (addHabitBtn) {
+      console.log("Adding event listener to Add Habit button");
+      addHabitBtn.addEventListener('click', showModal);
+    }
+    
+    if (addFirstHabitBtn) {
+      console.log("Adding event listener to Add First Habit button");
+      addFirstHabitBtn.addEventListener('click', showModal);
+    }
+    
+    // Setup close button handlers
+    const closeBtn = modal?.querySelector('.close-modal');
+    if (closeBtn) {
+      console.log("Setting up close button");
+      closeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideModal();
+      });
+    }
+    
+    // Setup cancel button
+    const cancelBtn = modal?.querySelector('[data-action="click->habit-form#closeModal"]');
+    if (cancelBtn) {
+      console.log("Setting up cancel button");
+      cancelBtn.addEventListener('click', hideModal);
+    }
+    
+    // Setup click outside to close
+    if (modal) {
+      modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          console.log("Clicked outside modal");
+          hideModal();
+        }
+      });
+      
+      // Prevent clicks inside modal content from closing the modal
+      const modalContent = modal.querySelector('.modal-content');
+      if (modalContent) {
+        modalContent.addEventListener('click', function(event) {
+          event.stopPropagation();
+        });
+      }
+    }
+  });
+</script>
+
+<style>
+  .habits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .page-header {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .tagline {
+    color: #6b7280;
+    font-size: 1.1rem;
+  }
+  
+  .content-layout {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .main-content {
+    flex: 2;
+  }
+  
+  .side-content {
+    flex: 1;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .habits-section, .calendar-section, .stats-section, .tips-section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .habit-card {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f9fafb;
+    border-left: 4px solid #e5e7eb;
+  }
+  
+  .habit-card.completed {
+    border-left: 4px solid #10b981;
+    background-color: #ecfdf5;
+  }
+  
+  .habit-card.pending {
+    border-left: 4px solid #f59e0b;
+  }
+  
+  .habit-name {
+    font-weight: 500;
+    margin: 0 0 5px 0;
+  }
+  
+  .habit-streak {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .habit-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .toggle-habit-btn, .edit-habit-btn, .delete-habit-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  
+  .toggle-habit-btn {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .edit-habit-btn {
+    background-color: #6b7280;
+    color: white;
+  }
+  
+  .delete-habit-btn {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+  }
+  
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 15px;
+  }
+  
+  .month-header {
+    grid-column: span 7;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .day-header {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  
+  .calendar-day {
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #f3f4f6;
+  }
+  
+  .calendar-day.completed {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .calendar-day.today {
+    border: 2px solid #3b82f6;
+  }
+  
+  .stat-card {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    margin-bottom: 15px;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3b82f6;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+  
+  .tip-card {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f0f9ff;
+    margin-bottom: 15px;
+    border-left: 4px solid #3b82f6;
+  }
+  
+  .tip-card h3 {
+    margin-top: 0;
+    color: #1e40af;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Explicitly show and hide the modal */
+  .modal.hidden {
+    display: none !important;
+  }
+  
+  .modal:not(.hidden) {
+    display: flex !important;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    padding: 0 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .primary-button, .secondary-button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .primary-button {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .secondary-button {
+    background-color: #e5e7eb;
+    color: #374151;
+  }
+  
+  .error-container {
+    padding: 0 20px;
+    color: #ef4444;
+  }
+  
+  .error-list {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+  
+  .success-message {
+    padding: 10px;
+    background-color: #ecfdf5;
+    color: #10b981;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .content-layout {
+      flex-direction: column;
+    }
+    
+    .main-content, .side-content {
+      width: 100%;
+    }
+  }
+</style> 

@@ -4,15 +4,12 @@ class PagesController < ApplicationController
 
   def home
     if logged_in?
-      # Get the user's habits (future functionality)
+      # Get the user's habits (loaded server-side)
       @user = current_user
-      # For demo purposes until habit model is implemented
-      @sample_habits = [
-        { name: "Morning Meditation", streak: 15, status: "completed" },
-        { name: "Read 30 Minutes", streak: 8, status: "pending" },
-        { name: "Exercise", streak: 21, status: "pending" },
-        { name: "Drink Water", streak: 30, status: "completed" }
-      ]
+      @habits = current_user.habits.order(created_at: :desc)
+
+      # Find strongest habit
+      @strongest_habit = @habits.max_by { |h| h.current_streak || 0 }
 
       # Quote of the day
       @quotes = [
@@ -30,5 +27,14 @@ class PagesController < ApplicationController
       # Show the landing page for non-logged in users
       render :landing
     end
+  end
+
+  # Redirect old routes to new controller
+  def habits
+    redirect_to habits_path
+  end
+
+  def habit_detail
+    redirect_to habit_path(params[:id])
   end
 end

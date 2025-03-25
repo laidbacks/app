@@ -7,12 +7,12 @@ class UserFixtureTest < ActiveSupport::TestCase
   test "fixtures are accessible by name" do
     # Access fixture by name
     admin = users(:admin)
-    assert_equal "admin_user", admin.username
+    assert_equal "admin", admin.username
 
     # Access multiple fixtures at once
     admin_and_regular = users(:admin, :regular_user)
     assert_equal 2, admin_and_regular.size
-    assert_equal [ "admin_user", "regular_joe" ], admin_and_regular.map(&:username).sort
+    assert_equal [ "admin", "regular_joe" ], admin_and_regular.map(&:username).sort
   end
 
   # Test that dynamically generated fixtures work
