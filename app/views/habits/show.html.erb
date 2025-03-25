@@ -1,0 +1,331 @@
+<% content_for :title, "Habit Details | HabitFlow" %>
+
+<div class="habit-detail-container">
+  <div class="page-header">
+    <a href="/habits" class="back-link">&larr; Back to Habits</a>
+    <h1 class="habit-name"><%= @habit.name %></h1>
+  </div>
+  
+  <% if flash[:notice] %>
+    <div class="notice-message">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  
+  <% if flash[:alert] %>
+    <div class="alert-message">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  
+  <div class="content-layout">
+    <!-- Left side: Stats and Calendar -->
+    <div class="main-content">
+      <!-- Habit Info section -->
+      <section class="habit-info-section">
+        <div class="section-header">
+          <h2>Habit Information</h2>
+          <div class="action-buttons">
+            <%= link_to "Edit", edit_habit_path(@habit), class: "edit-button" %>
+            <%= button_to "Delete", habit_path(@habit), method: :delete, class: "delete-button", data: { confirm: "Are you sure you want to delete this habit?" } %>
+          </div>
+        </div>
+        
+        <div class="habit-info-content">
+          <div class="info-row">
+            <span class="info-label">Description:</span>
+            <span class="info-value"><%= @habit.description.present? ? @habit.description : "-" %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Frequency:</span>
+            <span class="info-value"><%= @habit.frequency.capitalize %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value"><%= @habit.active? ? "Active" : "Inactive" %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Created:</span>
+            <span class="info-value"><%= @habit.created_at.strftime("%B %d, %Y") %></span>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Stats section -->
+      <section class="stats-section">
+        <h2>Your Progress</h2>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Current Streak</h3>
+            <div class="stat-value"><%= @habit.current_streak || 0 %></div>
+            <div class="stat-label">days</div>
+          </div>
+          
+          <div class="stat-card">
+            <h3>Completion Rate</h3>
+            <div class="stat-value">
+              <% 
+                total_days = (Date.today - @habit.created_at.to_date).to_i + 1
+                total_days = [total_days, 1].max
+                completed_days = @habit.habit_logs.where(completed: true).count
+                completion_rate = ((completed_days.to_f / total_days) * 100).round
+              %>
+              <%= completion_rate %>%
+            </div>
+            <div class="stat-label">overall</div>
+          </div>
+          
+          <div class="stat-card">
+            <h3>Total Completions</h3>
+            <div class="stat-value"><%= @habit.habit_logs.where(completed: true).count %></div>
+            <div class="stat-label">times</div>
+          </div>
+          
+          <div class="stat-card">
+            <h3>Best Streak</h3>
+            <div class="stat-value"><%= @habit.best_streak || 0 %></div>
+            <div class="stat-label">days</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Calendar section -->
+      <section class="calendar-section">
+        <div class="section-header">
+          <h2>Monthly Progress</h2>
+          <div class="date-selector">
+            <% current_month = Date.today.beginning_of_month %>
+            <span class="current-month"><%= current_month.strftime("%B %Y") %></span>
+          </div>
+        </div>
+        
+        <div class="habit-calendar">
+          <% 
+            # Generate the calendar for the current month
+            start_date = current_month.beginning_of_month
+            end_date = current_month.end_of_month
+            days_in_month = (start_date..end_date).to_a
+            
+            # Fetch all logs for the month
+            monthly_logs = @habit.habit_logs.where(date: start_date..end_date).index_by(&:date)
+          %>
+          
+          <div class="calendar-grid">
+            <% ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].each do |day_name| %>
+              <div class="calendar-header"><%= day_name %></div>
+            <% end %>
+            
+            <% 
+              # Fill in empty cells for days before the 1st of the month
+              first_day_wday = start_date.wday
+              first_day_wday.times do 
+            %>
+              <div class="calendar-day empty"></div>
+            <% end %>
+            
+            <% days_in_month.each do |date| %>
+              <% 
+                is_today = date == Date.today
+                has_log = monthly_logs[date].present?
+                is_completed = has_log && monthly_logs[date].completed?
+                day_class = is_today ? "today" : (is_completed ? "completed" : (has_log ? "incomplete" : ""))
+              %>
+              <div class="calendar-day <%= day_class %>">
+                <div class="date-number"><%= date.day %></div>
+                <% if has_log && is_completed %>
+                  <div class="completion-marker">✓</div>
+                <% elsif has_log %>
+                  <div class="completion-marker">✗</div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Right side: Log entries -->
+    <div class="side-content">
+      <!-- Log section -->
+      <section class="log-section">
+        <div class="section-header">
+          <h2>Habit Logs</h2>
+          <button class="add-log-button" id="addLogBtn">+ Add Log</button>
+        </div>
+        
+        <div class="log-entries">
+          <% 
+            logs = @habit.habit_logs.order(date: :desc).limit(20)
+            if logs.any? 
+          %>
+            <% logs.each do |log| %>
+              <div class="log-entry <%= log.completed? ? 'completed' : '' %>">
+                <span class="log-date"><%= log.date.strftime("%B %d, %Y") %></span>
+                <span class="log-status <%= log.completed? ? 'completed' : 'pending' %>">
+                  <%= log.completed? ? 'Completed' : 'Not Completed' %>
+                </span>
+                <% if log.notes.present? %>
+                  <p class="log-notes"><%= log.notes %></p>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="empty-logs-state">
+              <p>No logs recorded yet. Start tracking your progress by adding a log entry.</p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <!-- Add Log Modal -->
+  <div id="addLogModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add Habit Log</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <%= form_with(model: [@habit, HabitLog.new], url: habit_habit_logs_path(@habit)) do |form| %>
+        <div class="form-group">
+          <%= form.label :date, "Date" %>
+          <%= form.date_field :date, required: true, value: Date.today %>
+        </div>
+        
+        <div class="form-group">
+          <label>Completion Status</label>
+          <div class="checkbox-group">
+            <%= form.check_box :completed, checked: true %>
+            <%= form.label :completed, "Mark as completed" %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :notes, "Notes (Optional)" %>
+          <%= form.text_area :notes %>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="secondary-button" id="cancelLogBtn">Cancel</button>
+          <%= form.submit "Save Log", class: "primary-button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Modal functionality for add log
+    const addLogModal = document.getElementById('addLogModal');
+    const addLogBtn = document.getElementById('addLogBtn');
+    const closeAddLogModalButton = addLogModal.querySelector('.close-modal');
+    const cancelLogBtn = document.getElementById('cancelLogBtn');
+    
+    // Function to show modal
+    function showAddLogModal() {
+      addLogModal.classList.remove('hidden');
+      addLogModal.style.display = 'flex';
+    }
+    
+    // Function to hide modal
+    function hideAddLogModal() {
+      addLogModal.classList.add('hidden');
+      addLogModal.style.display = 'none';
+    }
+    
+    // Add event listeners
+    if (addLogBtn) {
+      addLogBtn.addEventListener('click', showAddLogModal);
+    }
+    
+    if (closeAddLogModalButton) {
+      closeAddLogModalButton.addEventListener('click', hideAddLogModal);
+    }
+    
+    if (cancelLogBtn) {
+      cancelLogBtn.addEventListener('click', hideAddLogModal);
+    }
+    
+    // Close modal when clicking outside
+    addLogModal.addEventListener('click', function(event) {
+      if (event.target === addLogModal) {
+        hideAddLogModal();
+      }
+    });
+  });
+</script>
+
+<style>
+  .notice-message {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .alert-message {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .calendar-header {
+    text-align: center;
+    font-weight: 500;
+    color: #6b7280;
+    padding: 5px;
+  }
+  
+  .calendar-day {
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .calendar-day.empty {
+    background-color: #f9fafb;
+    border: none;
+  }
+  
+  .calendar-day.today {
+    background-color: #eff6ff;
+    border-color: #3b82f6;
+  }
+  
+  .calendar-day.completed {
+    background-color: #ecfdf5;
+    border-color: #10b981;
+  }
+  
+  .calendar-day.incomplete {
+    background-color: #fef2f2;
+    border-color: #ef4444;
+  }
+  
+  .date-number {
+    font-size: 0.9rem;
+  }
+  
+  .completion-marker {
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 2px;
+  }
+</style>

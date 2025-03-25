@@ -20,6 +20,12 @@ Rails.application.routes.draw do
 
   get "/profile", to: "users#show"
 
+  # Habits routes
+  resources :habits do
+    patch "toggle_today", on: :member
+    resources :habit_logs, shallow: true
+  end
+
   # Sessions routes for login/logout
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
