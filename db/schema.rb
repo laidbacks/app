@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_24_182738) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_182659) do
   create_table "habit_logs", force: :cascade do |t|
-    t.date "date"
-    t.text "notes"
-    t.boolean "completed"
     t.integer "habit_id", null: false
     t.integer "user_id", null: false
+    t.date "date", null: false
+    t.boolean "completed", default: false
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["habit_id", "date"], name: "index_habit_logs_on_habit_id_and_date", unique: true
     t.index ["habit_id"], name: "index_habit_logs_on_habit_id"
     t.index ["user_id"], name: "index_habit_logs_on_user_id"
   end

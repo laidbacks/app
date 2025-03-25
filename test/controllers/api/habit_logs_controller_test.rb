@@ -54,7 +54,7 @@ module Api
 
     test "should filter by completion status" do
       incomplete_log = HabitLog.create(
-        date: Date.today,
+        date: Date.yesterday,
         notes: "Incomplete log",
         completed: false,
         habit: @habit,

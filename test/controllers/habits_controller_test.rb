@@ -3,7 +3,8 @@ require "test_helper"
 class HabitsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    post login_path, params: { username: @user.username, password: "password" }
+    sign_in_as(@user, "password123")
+    @habit = habits(:one)
   end
 
   test "should get index" do
