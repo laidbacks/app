@@ -3,6 +3,9 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, if: :password_digest_changed?
 
+  has_many :habits, dependent: :destroy
+  has_many :habit_logs, dependent: :destroy
+
   before_validation :validate_username_uniqueness
 
   private
