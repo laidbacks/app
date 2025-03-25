@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2025-03-24
+  notes: MyText
+  completed: false
+  habit: one
+  user: one
+
+two:
+  date: 2025-03-24
+  notes: MyText
+  completed: false
+  habit: two
+  user: two

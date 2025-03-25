@@ -3,6 +3,18 @@
 # Sample user fixtures for testing
 # Each fixture has a name (admin, regular_user) followed by attributes
 
+one:
+  username: user_one
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  username: user_two
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
 admin:
   username: admin_user
   password_digest: <%= BCrypt::Password.create('admin123') %>
