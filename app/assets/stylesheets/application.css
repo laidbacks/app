@@ -13,6 +13,7 @@
 @import 'sidebar.css';
 @import 'users.css';
 @import 'user_profile.css';
+@import 'notifications.css';
 
 /* Global styles */
 body {

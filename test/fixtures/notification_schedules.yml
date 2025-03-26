@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  notification: one
+  schedule_type: "recurring"
+  frequency: "daily"
+  scheduled_at: <%= 1.day.from_now %>
+  last_sent_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %> 

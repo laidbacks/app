@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_many :habits, dependent: :destroy
   has_many :habit_logs, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_one :notification_preference, dependent: :destroy
 
   before_validation :validate_username_uniqueness
 

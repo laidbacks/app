@@ -126,3 +126,312 @@
       align-self: flex-end;
     }
   }
+
+  /* Notification Management Section */
+  .notification-management-card {
+    margin-top: 30px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .create-notification-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .create-notification-btn:hover {
+    background-color: #2563eb;
+  }
+
+  .create-notification-btn.centered {
+    margin: 15px auto 0;
+    display: inline-flex;
+  }
+
+  .manage-notification-btn {
+    background-color: #f8fafc;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .manage-notification-btn:hover {
+    background-color: #e2e8f0;
+    color: #334155;
+  }
+
+  .notification-action-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .notification-action-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .notification-action-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .action-icon {
+    background-color: #dbeafe;
+    color: #1e40af;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    font-size: 1.5rem;
+  }
+
+  .action-details {
+    flex: 1;
+  }
+
+  .action-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #334155;
+  }
+
+  .action-details p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .action-arrow {
+    color: #94a3b8;
+  }
+
+  .notification-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+
+  .stat-item {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    flex: 1;
+    margin: 0 8px;
+  }
+
+  .stat-item:first-child {
+    margin-left: 0;
+  }
+
+  .stat-item.scheduled {
+    border-left: 4px solid #3b82f6;
+  }
+
+  .stat-item.pending {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .stat-item.sent {
+    border-left: 4px solid #10b981;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+
+  .recent-notifications h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #334155;
+  }
+
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .recent-notification-item {
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .recent-notification-item.scheduled {
+    border-left: 4px solid #3b82f6;
+  }
+
+  .recent-notification-item.sent {
+    border-left: 4px solid #10b981;
+  }
+
+  .recent-notification-item.failed {
+    border-left: 4px solid #ef4444;
+  }
+
+  .recent-notification-item.pending {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .notification-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #334155;
+  }
+
+  .notification-body {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .notification-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8px;
+  }
+
+  .notification-type {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .notification-type.email {
+    color: #6366f1;
+  }
+
+  .notification-type.push {
+    color: #3b82f6;
+  }
+
+  .notification-type.sms {
+    color: #10b981;
+  }
+
+  .notification-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+  }
+
+  .status-scheduled {
+    background-color: #dbeafe;
+    color: #1e40af;
+  }
+
+  .status-sent {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+
+  .status-failed {
+    background-color: #fee2e2;
+    color: #b91c1c;
+  }
+
+  .status-pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+
+  .view-all-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .view-all-link a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .view-all-link a:hover {
+    text-decoration: underline;
+  }
+
+  .empty-notifications {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+    background-color: #f8fafc;
+    border: 1px dashed #e2e8f0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .empty-notifications i {
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 15px;
+  }
+
+  .empty-notifications p {
+    margin-bottom: 15px;
+  }

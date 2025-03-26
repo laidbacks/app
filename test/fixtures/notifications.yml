@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+default:
+  user: default
+  title: "Test Notification"
+  body: "This is a test notification."
+  notification_type: "email"
+  status: "pending"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+one:
+  user: one
+  title: "Daily Reminder"
+  body: "Don't forget to check your tasks for today!"
+  notification_type: "push"
+  status: "scheduled"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  user: two
+  title: "Weekly Summary"
+  body: "Here's your weekly progress summary."
+  notification_type: "email"
+  status: "sent"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %> 

@@ -1,0 +1,59 @@
+<div data-controller="notification-schedule" data-notification-schedule-id-value="<%= params[:id] %>" class="container mx-auto px-4 py-8">
+  <div class="notifications-container">
+    <h1 class="notification-preferences-title">Schedule Notification</h1>
+    
+    <!-- Error & Success Messages -->
+    <div data-notification-schedule-target="errorContainer" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+    <div data-notification-schedule-target="successContainer" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"></div>
+    
+    <!-- Loading state -->
+    <div data-notification-schedule-target="loading" class="text-center py-4">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+      <p class="mt-2 text-gray-600">Loading notification...</p>
+    </div>
+    
+    <!-- Notification Details -->
+    <div data-notification-schedule-target="details" class="notification-item mb-6 hidden">
+      <div class="notification-details">
+        <div data-notification-schedule-target="title" class="notification-title"></div>
+        <div data-notification-schedule-target="body" class="notification-body"></div>
+        <div class="notification-meta">
+          <span data-notification-schedule-target="type" class="notification-type"></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Schedule Form -->
+    <form data-notification-schedule-target="form" data-action="submit->notification-schedule#scheduleNotification" class="notification-preferences-form hidden">
+      <div class="notification-type-group w-full">
+        <div class="notification-option">
+          <label for="schedule_type">Schedule Type</label>
+          <select data-notification-schedule-target="scheduleTypeInput" data-action="change->notification-schedule#toggleRecurring" name="schedule_type" id="schedule_type" class="form-select">
+            <option value="one_time">One Time</option>
+            <option value="recurring">Recurring</option>
+          </select>
+        </div>
+        
+        <div data-notification-schedule-target="frequencyContainer" class="notification-option hidden">
+          <label for="frequency">Frequency</label>
+          <select data-notification-schedule-target="frequencyInput" name="frequency" id="frequency" class="form-select">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+        
+        <div class="notification-option">
+          <label for="scheduled_at">Scheduled Date & Time</label>
+          <input type="datetime-local" data-notification-schedule-target="scheduledAtInput" name="scheduled_at" id="scheduled_at" class="form-input">
+        </div>
+      </div>
+      
+      <div class="flex justify-between mt-4">
+        <button type="submit" class="save-preferences-btn">Schedule Notification</button>
+        <button type="button" data-action="click->notification-schedule#cancel" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div> 
