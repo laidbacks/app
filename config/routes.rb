@@ -9,11 +9,16 @@ Rails.application.routes.draw do
       delete "profile/avatar", to: "profiles#remove_avatar"
 
       resources :notifications, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :stats
+        end
         member do
           post :schedule
-          post :cancel
+          patch :cancel
         end
       end
+
+      resource :notification_preferences, only: [ :show, :update ]
     end
   end
   get "pages/signup"
@@ -36,6 +41,16 @@ Rails.application.routes.draw do
   post "/signup", to: "users#create"
 
   get "/profile", to: "users#show"
+
+  # Notifications routes
+  resources :notifications, only: [ :index, :edit, :new, :create ] do
+    member do
+      get :schedule
+    end
+    collection do
+      delete :delete_all
+    end
+  end
 
   # Habits routes
   resources :habits do

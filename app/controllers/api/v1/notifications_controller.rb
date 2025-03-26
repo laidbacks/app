@@ -1,10 +1,21 @@
 class Api::V1::NotificationsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :set_notification, only: [ :show, :update, :destroy, :schedule, :cancel ]
 
   def index
     @notifications = current_user.notifications
     render json: @notifications
+  end
+
+  def stats
+    stats = {
+      scheduled: current_user.notifications.scheduled.count,
+      pending: current_user.notifications.pending.count,
+      sent: current_user.notifications.sent.count,
+      failed: current_user.notifications.failed.count,
+      total: current_user.notifications.count
+    }
+    render json: stats
   end
 
   def show

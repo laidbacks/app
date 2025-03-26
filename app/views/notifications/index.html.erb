@@ -1,0 +1,110 @@
+<div data-controller="notifications" class="container mx-auto px-4 py-8">
+  <div class="notifications-container">
+    <div class="section-header">
+      <h1 class="notification-preferences-title">Notification Preferences</h1>
+      <div class="notification-actions-buttons">
+        <%= link_to new_notification_path, class: "create-notification-btn" do %>
+          <i class="fas fa-plus-circle"></i> Create
+        <% end %>
+        <%= button_to delete_all_notifications_path, method: :delete, 
+            data: { confirm: "Are you sure you want to delete all notifications?" }, 
+            class: "delete-all-btn", form_class: "inline" do %>
+          <i class="fas fa-trash"></i> Delete All
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Error & Success Messages -->
+    <div data-notifications-target="errorContainer" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+    <div data-notifications-target="successContainer" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"></div>
+    
+    <!-- Notification Preferences Form -->
+    <form data-notifications-target="form" data-action="submit->notifications#savePreferences" class="notification-preferences-form">
+      
+      <!-- Email Notifications -->
+      <div class="notification-type-group">
+        <div class="notification-type-header">
+          <h3 class="notification-type-title">
+            <i class="fas fa-envelope"></i> Email Notifications
+          </h3>
+          <label class="notification-toggle">
+            <input type="checkbox" data-notifications-target="emailToggle" data-action="change->notifications#toggleType" data-type="email">
+            <span class="notification-toggle-slider"></span>
+          </label>
+        </div>
+        
+        <div data-notifications-target="emailOptions" class="notification-options">
+          <div class="notification-option">
+            <label for="email_frequency">Frequency</label>
+            <select name="email_frequency" id="email_frequency" class="form-select">
+              <option value="immediately">Immediately</option>
+              <option value="daily_digest">Daily Digest</option>
+              <option value="weekly_digest">Weekly Digest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Push Notifications -->
+      <div class="notification-type-group">
+        <div class="notification-type-header">
+          <h3 class="notification-type-title">
+            <i class="fas fa-bell"></i> Push Notifications
+          </h3>
+          <label class="notification-toggle">
+            <input type="checkbox" data-notifications-target="pushToggle" data-action="change->notifications#toggleType" data-type="push">
+            <span class="notification-toggle-slider"></span>
+          </label>
+        </div>
+        
+        <div data-notifications-target="pushOptions" class="notification-options">
+          <div class="notification-option">
+            <label for="push_frequency">Frequency</label>
+            <select name="push_frequency" id="push_frequency" class="form-select">
+              <option value="immediately">Immediately</option>
+              <option value="batched">Batched (Every Hour)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SMS Notifications -->
+      <div class="notification-type-group">
+        <div class="notification-type-header">
+          <h3 class="notification-type-title">
+            <i class="fas fa-comment-sms"></i> SMS Notifications
+          </h3>
+          <label class="notification-toggle">
+            <input type="checkbox" data-notifications-target="smsToggle" data-action="change->notifications#toggleType" data-type="sms">
+            <span class="notification-toggle-slider"></span>
+          </label>
+        </div>
+        
+        <div data-notifications-target="smsOptions" class="notification-options">
+          <div class="notification-option">
+            <label for="sms_frequency">Frequency</label>
+            <select name="sms_frequency" id="sms_frequency" class="form-select">
+              <option value="immediately">Immediately</option>
+              <option value="daily_digest">Daily Digest</option>
+            </select>
+          </div>
+          
+          <div class="notification-option">
+            <label for="phone_number">Phone Number</label>
+            <input type="tel" name="phone_number" id="phone_number" placeholder="+1 (555) 123-4567" class="form-input">
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="save-preferences-btn">
+        <i class="fas fa-save"></i> Save Preferences
+      </button>
+    </form>
+  </div>
+  
+  <!-- Upcoming Notifications List -->
+  <div class="notification-list">
+    <h2 class="notification-list-title">Your Notifications</h2>
+    <div data-notifications-target="list" class="notifications-list"></div>
+  </div>
+</div> 

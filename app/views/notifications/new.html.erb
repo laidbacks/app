@@ -1,0 +1,52 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="notifications-container">
+    <h1 class="notification-preferences-title">Create New Notification</h1>
+    
+    <% if @notification.errors.any? %>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
+        <ul>
+          <% @notification.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <%= form_with(model: @notification, class: "notification-preferences-form") do |form| %>
+      <div class="notification-type-group w-full">
+        <div class="notification-option">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-input" %>
+        </div>
+        
+        <div class="notification-option">
+          <%= form.label :body %>
+          <%= form.text_area :body, rows: 4, class: "form-input" %>
+        </div>
+        
+        <div class="notification-option">
+          <%= form.label :notification_type %>
+          <%= form.select :notification_type, 
+            [
+              ["Email", "email"], 
+              ["Push", "push"], 
+              ["SMS", "sms"]
+            ], 
+            {}, 
+            class: "form-select" 
+          %>
+        </div>
+      </div>
+      
+      <div class="flex justify-between mt-4">
+        <%= form.submit "Create Notification", class: "save-preferences-btn" %>
+        <%= link_to "Cancel", notifications_path, class: "bg-gray-300 text-gray-700 px-4 py-2 rounded" %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="mt-4 text-center">
+    <p class="text-sm text-gray-600">After creating your notification, you'll be able to schedule it for delivery.</p>
+  </div>
+</div> 

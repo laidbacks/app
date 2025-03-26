@@ -3,30 +3,42 @@
 # Sample user fixtures for testing
 # Each fixture has a name (admin, regular_user) followed by attributes
 
+default:
+  username: default_user
+  email: default@example.com
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
 one:
   username: user_one
+  email: user_one@example.com
   password_digest: <%= BCrypt::Password.create('password123') %>
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 two:
   username: user_two
+  email: user_two@example.com
   password_digest: <%= BCrypt::Password.create('password123') %>
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 admin:
   username: admin
+  email: admin@example.com
   password_digest: <%= BCrypt::Password.create('password') %>
 
 regular_user:
   username: regular_joe
+  email: regular_joe@example.com
   password_digest: <%= BCrypt::Password.create('password') %>
 
 # Using ERB to generate multiple fixtures dynamically
 <% 5.times do |n| %>
 user_<%= n %>:
   username: test_user_<%= n %>
+  email: test_user_<%= n %>@example.com
   password_digest: <%= BCrypt::Password.create("password" + n.to_s) %>
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

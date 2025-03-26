@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Default notification preferences for testing
+default:
+  user: default
+  email_enabled: true
+  push_enabled: true
+  sms_enabled: false
+  email_frequency: "immediately"
+  push_frequency: "immediately"
+  sms_frequency: "immediately"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+one:
+  user: one
+  email_enabled: true
+  push_enabled: true
+  sms_enabled: false
+  email_frequency: "daily_digest"
+  push_frequency: "immediately"
+  sms_frequency: "weekly_digest"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  user: two
+  email_enabled: false
+  push_enabled: true
+  sms_enabled: true
+  email_frequency: "weekly_digest"
+  push_frequency: "batched"
+  sms_frequency: "daily_digest"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %> 
