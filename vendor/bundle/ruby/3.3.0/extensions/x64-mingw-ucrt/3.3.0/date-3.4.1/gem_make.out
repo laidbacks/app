@@ -1,0 +1,25 @@
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+C:/Ruby33-x64/bin/ruby.exe extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... no
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250326-8068-201agl sitelibdir\=./.gem.20250326-8068-201agl clean
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250326-8068-201agl sitelibdir\=./.gem.20250326-8068-201agl
+generating date_core-x64-mingw-ucrt.def
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.so
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250326-8068-201agl sitelibdir\=./.gem.20250326-8068-201agl install
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20250326-8068-201agl
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250326-8068-201agl sitelibdir\=./.gem.20250326-8068-201agl clean

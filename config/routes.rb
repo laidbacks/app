@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      # Profile routes
+      get "profile", to: "profiles#show"
+      patch "profile", to: "profiles#update"
+      put "profile", to: "profiles#update"
+      post "profile/avatar", to: "profiles#update_avatar"
+      delete "profile/avatar", to: "profiles#remove_avatar"
+
       resources :notifications, only: [ :index, :show, :create, :update, :destroy ] do
         member do
           post :schedule
