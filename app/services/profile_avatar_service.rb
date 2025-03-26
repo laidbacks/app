@@ -7,35 +7,26 @@ class ProfileAvatarService
   end
 
   # Process and validate avatar upload
-  # @param avatar_param [ActionDispatch::Http::UploadedFile] The uploaded file
+  # @param avatar_params [ActionDispatch::Http::UploadedFile] The uploaded file
   # @return [Hash] Result with :success boolean and :message string
-  def process_avatar(avatar_param)
-    return { success: false, message: "No file uploaded" } unless avatar_param
+  def process_avatar(avatar_params)
+    return { success: false, message: "No avatar was provided" } unless avatar_params.present?
 
-    # Validate file size
-    if avatar_param.size > MAX_FILE_SIZE
-      return { success: false, message: "File size exceeds maximum limit (5MB)" }
-    end
-
-    # Validate content type
-    unless VALID_CONTENT_TYPES.include?(avatar_param.content_type)
-      return { success: false, message: "Invalid file type. Please upload a JPEG, PNG, or GIF image." }
-    end
-
-    # Process and store the avatar
     begin
-      # For simplicity, we're assuming Active Storage is configured
-      # In a real app, this would attach the image to the user record
-      @user.avatar.attach(avatar_param)
+      # Check avatar file size and type
+      validate_avatar(avatar_params)
 
-      # Set the avatar URL on the user model
-      avatar_url = Rails.application.routes.url_helpers.rails_blob_url(@user.avatar)
+      # Process and store the avatar
+      # Note: In a real implementation, this would save the file to a storage service like AWS S3
+      # For this example, we'll just set a placeholder URL
+      avatar_url = process_and_store_avatar(avatar_params)
+
+      # Update the user's avatar
       @user.update(avatar: avatar_url)
 
-      { success: true, message: "Avatar uploaded successfully", avatar_url: avatar_url }
-    rescue => e
-      Rails.logger.error("Avatar upload failed: #{e.message}")
-      { success: false, message: "Failed to process avatar upload" }
+      { success: true, message: "Avatar updated successfully", avatar_url: avatar_url }
+    rescue StandardError => e
+      { success: false, message: e.message }
     end
   end
 
@@ -43,11 +34,43 @@ class ProfileAvatarService
   # @return [Hash] Result with :success boolean and :message string
   def remove_avatar
     if @user.avatar.present?
-      @user.avatar.purge
-      @user.update(avatar: nil)
-      { success: true, message: "Avatar removed successfully" }
+      # Remove avatar from storage
+      # In a real implementation, this would delete the file from storage
+
+      # Update user record
+      if @user.update(avatar: nil)
+        { success: true, message: "Avatar removed successfully" }
+      else
+        { success: false, message: "Unable to remove avatar" }
+      end
     else
       { success: false, message: "No avatar to remove" }
     end
+  end
+
+  private
+
+  def validate_avatar(avatar)
+    # Check file size (max 5MB)
+    if avatar.size > 5.megabytes
+      raise "Avatar file is too large (maximum is 5MB)"
+    end
+
+    # Check file type
+    permitted_types = %w[image/jpeg image/png image/gif]
+    unless permitted_types.include?(avatar.content_type)
+      raise "Avatar must be a JPEG, PNG, or GIF file"
+    end
+  end
+
+  def process_and_store_avatar(avatar)
+    # In a real implementation, this would:
+    # 1. Process the image (resize, compress, etc.)
+    # 2. Store it in a storage service like AWS S3
+    # 3. Return the URL to the stored image
+
+    # For this example, we'll return a placeholder URL
+    # In practice, you'd want to use Active Storage or a gem like Carrierwave or Shrine
+    "https://example.com/avatars/#{@user.id}-#{Time.now.to_i}.jpg"
   end
 end

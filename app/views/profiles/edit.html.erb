@@ -1,0 +1,66 @@
+<div class="container profile-container" data-controller="profile">
+  <div class="profile-header">
+    <h1>Edit Profile</h1>
+    <%= link_to "Back to Profile", profile_path, class: "back-button" %>
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="notice-message bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert-message bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <div data-profile-target="errorContainer" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+  <div data-profile-target="successContainer" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"></div>
+
+  <div class="profile-card">
+    <div class="profile-section">
+      <h2>Your Information</h2>
+      
+      <%= form_with url: profile_path, method: :patch, data: { action: "submit->profile#updateProfile" }, class: "profile-form" do |form| %>
+        <div class="form-group">
+          <%= form.label :username, "Username", class: "form-label" %>
+          <%= form.text_field :username, value: current_user.username, class: "form-input", data: { profile_target: "username" } %>
+          <div class="form-hint">Your unique username for the system.</div>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :full_name, "Full Name", class: "form-label" %>
+          <%= form.text_field :full_name, value: current_user.full_name, class: "form-input", data: { profile_target: "fullName" } %>
+          <div class="form-hint">Your full name (optional).</div>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :email, "Email", class: "form-label" %>
+          <%= form.email_field :email, value: current_user.email, class: "form-input", data: { profile_target: "email" } %>
+          <div class="form-hint">Your email address for notifications.</div>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :bio, "Bio", class: "form-label" %>
+          <%= form.text_area :bio, value: current_user.bio, class: "form-input form-textarea", data: { profile_target: "bio" } %>
+          <div class="form-hint">Short description about yourself (optional).</div>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :timezone, "Timezone", class: "form-label" %>
+          <%= form.time_zone_select :timezone, ActiveSupport::TimeZone.all.sort, { default: current_user.timezone || "UTC" }, { class: "form-select", data: { profile_target: "timezone" } } %>
+          <div class="form-hint">Your local timezone for scheduling.</div>
+        </div>
+
+        <div class="form-actions">
+          <%= form.submit "Save Changes", class: "submit-button", data: { profile_target: "submitButton" } %>
+          <%= link_to "Cancel", profile_path, class: "cancel-button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= stylesheet_link_tag "profile", "data-turbo-track": "reload" %> 

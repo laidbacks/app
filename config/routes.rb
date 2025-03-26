@@ -40,7 +40,13 @@ Rails.application.routes.draw do
   get "/signup", to: "users#signup"
   post "/signup", to: "users#create"
 
-  get "/profile", to: "users#show"
+  # Profile routes
+  get "/profile", to: "profiles#show", as: :profile
+  get "/profile/edit", to: "profiles#edit", as: :edit_profile
+  patch "/profile", to: "profiles#update"
+  put "/profile", to: "profiles#update"
+  post "/profile/avatar", to: "profiles#update_avatar"
+  delete "/profile/avatar", to: "profiles#remove_avatar"
 
   # Notifications routes
   resources :notifications, only: [ :index, :edit, :new, :create ] do
