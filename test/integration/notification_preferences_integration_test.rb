@@ -1,14 +1,15 @@
 require "test_helper"
 
 class NotificationPreferencesIntegrationTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # No need to include Devise::Test::IntegrationHelpers since it's not working correctly with our setup
 
   setup do
     @user = users(:default)
-    sign_in @user
+    # Use our custom authentication helper
+    sign_in_as(@user)
 
     # Ensure the user has notification preferences
-    @preferences = @user.notification_preferences || @user.create_notification_preferences(
+    @preferences = @user.notification_preference || @user.create_notification_preference(
       email_enabled: true,
       push_enabled: true,
       sms_enabled: false,

@@ -2,11 +2,11 @@ class Api::V1::NotificationPreferencesController < ApplicationController
   before_action :authenticate_user
 
   def show
-    render json: current_user.notification_preferences
+    render json: current_user.notification_preference
   end
 
   def update
-    @preferences = current_user.notification_preferences || current_user.build_notification_preferences
+    @preferences = current_user.notification_preference || current_user.build_notification_preference
 
     if @preferences.update(preference_params)
       render json: @preferences

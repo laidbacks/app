@@ -1,11 +1,12 @@
 require "test_helper"
 
 class NotificationApiIntegrationTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # No need to include Devise::Test::IntegrationHelpers since it's not working correctly with our setup
 
   setup do
     @user = users(:default)
-    sign_in @user
+    # Use our custom authentication helper
+    sign_in_as(@user)
 
     # Create a test notification
     @notification = @user.notifications.create!(

@@ -1,21 +1,10 @@
 class NotificationPreference < ApplicationRecord
   belongs_to :user
 
-  enum email_frequency: {
-    immediately: "immediately",
-    daily_digest: "daily_digest",
-    weekly_digest: "weekly_digest"
-  }, _default: "immediately"
-
-  enum push_frequency: {
-    immediately: "immediately",
-    batched: "batched"
-  }, _default: "immediately"
-
-  enum sms_frequency: {
-    immediately: "immediately",
-    daily_digest: "daily_digest"
-  }, _default: "immediately"
+  # Simple string validation instead of using enum
+  validates :email_frequency, inclusion: { in: %w[immediately daily_digest weekly_digest] }
+  validates :push_frequency, inclusion: { in: %w[immediately batched] }
+  validates :sms_frequency, inclusion: { in: %w[immediately daily_digest] }
 
   validates :email_enabled, inclusion: { in: [ true, false ] }
   validates :push_enabled, inclusion: { in: [ true, false ] }
