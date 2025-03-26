@@ -233,3 +233,19 @@ body.sidebar-expanded .sidebar {
     color: #b91c1c;
     border: 1px solid #fecaca;
 }
+
+/* Add the new style for notification badge at the end of the file */
+
+.notification-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 8px;
+}

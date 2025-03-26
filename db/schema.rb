@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_24_210809) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_210810) do
   create_table "habit_logs", force: :cascade do |t|
     t.integer "habit_id", null: false
     t.integer "user_id", null: false
@@ -33,6 +33,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_210809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_habits_on_user_id"
+  end
+
+  create_table "notification_preferences", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.boolean "email_enabled", default: true, null: false
+    t.boolean "push_enabled", default: true, null: false
+    t.boolean "sms_enabled", default: false, null: false
+    t.string "email_frequency", default: "immediately", null: false
+    t.string "push_frequency", default: "immediately", null: false
+    t.string "sms_frequency", default: "immediately", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_preferences_on_user_id"
   end
 
   create_table "notification_schedules", force: :cascade do |t|
@@ -73,6 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_210809) do
   add_foreign_key "habit_logs", "habits"
   add_foreign_key "habit_logs", "users"
   add_foreign_key "habits", "users"
+  add_foreign_key "notification_preferences", "users"
   add_foreign_key "notification_schedules", "notifications"
   add_foreign_key "notifications", "users"
 end
