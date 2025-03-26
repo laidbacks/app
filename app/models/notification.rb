@@ -7,13 +7,13 @@ class Notification < ApplicationRecord
   validates :notification_type, presence: true
   validates :status, presence: true
 
-  enum notification_type: {
+  enum :notification_type, {
     email: "email",
     push: "push",
     sms: "sms"
   }
 
-  enum status: {
+  enum :status, {
     pending: "pending",
     scheduled: "scheduled",
     sent: "sent",

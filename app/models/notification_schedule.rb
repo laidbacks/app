@@ -5,12 +5,12 @@ class NotificationSchedule < ApplicationRecord
   validates :frequency, presence: true
   validates :scheduled_at, presence: true
 
-  enum schedule_type: {
+  enum :schedule_type, {
     one_time: "one_time",
     recurring: "recurring"
   }
 
-  enum frequency: {
+  enum :frequency, {
     daily: "daily",
     weekly: "weekly",
     monthly: "monthly",
