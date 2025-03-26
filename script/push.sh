@@ -1,4 +1,4 @@
 bundle exec rubocop -a
 git add .
-git commit -m "Feature: User model Test"
+git commit -m "Commit: "
 git push -u origin

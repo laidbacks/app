@@ -1,0 +1,19 @@
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.4.0/gems/bindex-0.8.1/ext/skiptrace
+C:/Ruby34-x64/bin/ruby.exe extconf.rb
+creating Makefile
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.4.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250326-8480-vadlzf sitelibdir\=./.gem.20250326-8480-vadlzf clean
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.4.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250326-8480-vadlzf sitelibdir\=./.gem.20250326-8480-vadlzf
+generating cruby-x64-mingw-ucrt.def
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.4.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250326-8480-vadlzf sitelibdir\=./.gem.20250326-8480-vadlzf install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20250326-8480-vadlzf/skiptrace/internal
+
+current directory: C:/Users/samiu/Desktop/habitflow/app/vendor/bundle/ruby/3.4.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250326-8480-vadlzf sitelibdir\=./.gem.20250326-8480-vadlzf clean

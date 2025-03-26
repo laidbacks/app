@@ -1,0 +1,37 @@
+pkg_config: checking for pkg-config for yaml-0.1... -------------------- not found
+
+PATH=".;C:/Ruby33-x64/lib;C:\Ruby33-x64\bin;C:\Ruby33-x64\msys64\ucrt64\bin;C:\Ruby33-x64\msys64\usr\bin;C:\Ruby33-x64\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\MinGW\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Tesseract-OCR;C:\Ruby33-x64\bin\ruby.exe;C:\Users\samiu\AppData\Local\Microsoft\WindowsApps;C:\Users\samiu\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\samiu\AppData\Roaming\npm;C:\Users\samiu\AppData\Local\Yarn\bin;C:\Users\samiu\AppData\Local\Programs\cursor\resources\app\bin" x86_64-w64-mingw32-pkg-config --exists yaml-0.1
+package configuration for yaml-0.1 is not found
+--------------------
+
+find_header: checking for yaml.h... -------------------- no
+
+PATH=".;C:/Ruby33-x64/lib;C:\Ruby33-x64\bin;C:\Ruby33-x64\msys64\ucrt64\bin;C:\Ruby33-x64\msys64\usr\bin;C:\Ruby33-x64\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\MinGW\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Tesseract-OCR;C:\Ruby33-x64\bin\ruby.exe;C:\Users\samiu\AppData\Local\Microsoft\WindowsApps;C:\Users\samiu\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\samiu\AppData\Roaming\npm;C:\Users\samiu\AppData\Local\Yarn\bin;C:\Users\samiu\AppData\Local\Programs\cursor\resources\app\bin" "gcc -o conftest.exe -IC:/Ruby33-x64/include/ruby-3.3.0/x64-mingw-ucrt -IC:/Ruby33-x64/include/ruby-3.3.0/ruby/backward -IC:/Ruby33-x64/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -DYAML_DECLARE_STATIC -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/Ruby33-x64/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: int main(int argc, char **argv)
+6: {
+7:   return !!argv[argc];
+8: }
+/* end */
+
+PATH=".;C:/Ruby33-x64/lib;C:\Ruby33-x64\bin;C:\Ruby33-x64\msys64\ucrt64\bin;C:\Ruby33-x64\msys64\usr\bin;C:\Ruby33-x64\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\MinGW\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Tesseract-OCR;C:\Ruby33-x64\bin\ruby.exe;C:\Users\samiu\AppData\Local\Microsoft\WindowsApps;C:\Users\samiu\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\samiu\AppData\Roaming\npm;C:\Users\samiu\AppData\Local\Yarn\bin;C:\Users\samiu\AppData\Local\Programs\cursor\resources\app\bin" "gcc -IC:/Ruby33-x64/include/ruby-3.3.0/x64-mingw-ucrt -IC:/Ruby33-x64/include/ruby-3.3.0/ruby/backward -IC:/Ruby33-x64/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -DYAML_DECLARE_STATIC -O3 -fno-fast-math -fstack-protector-strong   -c conftest.c"
+conftest.c:5:10: fatal error: yaml.h: No such file or directory
+    5 | #include <yaml.h>
+      |          ^~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: #include <yaml.h>
+/* end */
+
+--------------------
+
