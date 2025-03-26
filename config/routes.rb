@@ -30,10 +30,33 @@ Rails.application.routes.draw do
 
   get "/profile", to: "users#show"
 
+  # Habits routes
+  resources :habits do
+    patch "toggle_today", on: :member
+    resources :habit_logs, shallow: true
+  end
+
   # Sessions routes for login/logout
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
   # Sidekiq Web UI
   mount Sidekiq::Web => "/sidekiq"
+
+  # API routes
+  namespace :api do
+    resources :habits do
+      resources :habit_logs, shallow: true
+      member do
+        get :stats # GET /api/habits/:id/stats
+      end
+      collection do
+        get :active, to: "habits#index", defaults: { active: true }
+      end
+      patch :toggle_today, to: "habit_logs#toggle_today"
+    end
+
+    resources :habit_logs, only: [ :index ]
+  end
 end

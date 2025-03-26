@@ -1,0 +1,659 @@
+<% content_for :title, "Your Habits | HabitFlow" %>
+
+<div class="dashboard-container habits-page">
+  <div class="page-header">
+    <h1>Track Your Habits</h1>
+    <p class="tagline">Build consistency by tracking your daily progress.</p>
+  </div>
+  
+  <% if flash[:notice] %>
+    <div class="notice-message">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  
+  <% if flash[:alert] %>
+    <div class="alert-message">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  
+  <div class="content-layout">
+    <!-- Left side: Habit list -->
+    <div class="main-content">
+      <section class="habits-section">
+        <div class="section-header">
+          <h2>Your Habits</h2>
+          <button class="add-habit-btn" id="addHabitBtn">+ Add New Habit</button>
+        </div>
+        
+        <% if @habits.empty? %>
+          <div class="empty-state">
+            <p>You don't have any habits yet. Start tracking by adding your first habit.</p>
+            <button class="primary-button" id="addFirstHabitBtn">Add Your First Habit</button>
+          </div>
+        <% else %>
+          <div class="habit-cards-grid">
+            <% @habits.each do |habit| %>
+              <div class="habit-card <%= habit.habit_logs.find_by(date: Date.today)&.completed? ? 'completed' : 'pending' %>" data-habit-id="<%= habit.id %>">
+                <div class="habit-info">
+                  <h3 class="habit-name"><%= habit.name %></h3>
+                  <span class="habit-streak"><%= habit.current_streak || 0 %> day streak</span>
+                  <p class="habit-description"><%= habit.description %></p>
+                </div>
+                <div class="habit-actions">
+                  <%= button_to habit.habit_logs.find_by(date: Date.today)&.completed? ? '✓ Completed' : 'Mark Complete', 
+                            toggle_today_habit_path(habit), 
+                            method: :patch, 
+                            class: 'toggle-habit-btn' %>
+                  <a href="/habits/<%= habit.id %>" class="view-details-btn">
+                    <button>View Details</button>
+                  </a>
+                  <%= link_to 'Edit', edit_habit_path(habit), class: 'edit-habit-btn' %>
+                  <%= button_to 'Delete', habit_path(habit), method: :delete, class: 'delete-habit-btn', data: { confirm: 'Are you sure you want to delete this habit?' } %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
+    </div>
+    
+    <!-- Right side: Stats and Calendar -->
+    <div class="side-content">
+      <!-- Calendar section -->
+      <section class="calendar-section">
+        <h2>Weekly Progress</h2>
+        <div class="habit-calendar">
+          <% ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].each do |day| %>
+            <div class="day-container">
+              <div class="day-label"><%= day %></div>
+              <div class="day-marker <%= ["Mon", "Tue", "Wed", "Thu"].include?(day) ? 'completed' : (day == 'Fri' ? 'today' : '') %>"></div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+      
+      <!-- Stats section -->
+      <section class="stats-section">
+        <h2>Your Progress</h2>
+        
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>Current Streak</h3>
+            <div class="stat-value">
+              <% if @habits.any? %>
+                <%= @habits.map(&:current_streak).compact.max || 0 %>
+              <% else %>
+                0
+              <% end %>
+            </div>
+            <div class="stat-label">days</div>
+          </div>
+          
+          <div class="stat-card">
+            <h3>Completion Rate</h3>
+            <div class="stat-value">
+              <% if @habits.any? %>
+                <%= ((@habits.sum { |habit| habit.habit_logs.where(date: Date.today.beginning_of_month..Date.today, completed: true).count }.to_f / 
+                     (@habits.count * (Date.today.day))) * 100).round %>%
+              <% else %>
+                0%
+              <% end %>
+            </div>
+            <div class="stat-label">this month</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Tips section -->
+      <section class="tips-section">
+        <h2>Habit Building Tips</h2>
+        <div class="tip-card">
+          <h3>Start Small</h3>
+          <p>Begin with easy habits that take less than two minutes to complete. This builds momentum.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Stack Habits</h3>
+          <p>Connect new habits to existing routines. For example, "After I brush my teeth, I will meditate for one minute."</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Add Habit Modal -->
+<div id="addHabitModal" class="modal hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Add New Habit</h2>
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+    </div>
+    
+    <%= form_with(model: Habit.new, url: habits_path, method: :post) do |form| %>
+      <div class="form-group">
+        <%= form.label :name, "Habit Name" %>
+        <%= form.text_field :name, required: true %>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :description, "Description (Optional)" %>
+        <%= form.text_area :description %>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :frequency, "Frequency" %>
+        <%= form.select :frequency, [["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]] %>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="secondary-button" id="cancelHabitBtn">Cancel</button>
+        <%= form.submit "Create Habit", class: "primary-button" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded - initializing modal functionality");
+    
+    const modal = document.getElementById('addHabitModal');
+    const addHabitBtn = document.getElementById('addHabitBtn');
+    const addFirstHabitBtn = document.getElementById('addFirstHabitBtn');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const cancelHabitBtn = document.getElementById('cancelHabitBtn');
+    
+    // Function to show modal
+    function showModal() {
+      console.log("Showing modal");
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+    }
+    
+    // Function to hide modal
+    function hideModal() {
+      console.log("Hiding modal");
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
+    
+    // Event listeners
+    if (addHabitBtn) {
+      console.log("Setting up add habit button");
+      addHabitBtn.addEventListener('click', showModal);
+    }
+    
+    if (addFirstHabitBtn) {
+      console.log("Setting up add first habit button");
+      addFirstHabitBtn.addEventListener('click', showModal);
+    }
+    
+    if (closeModalBtn) {
+      console.log("Setting up close button");
+      closeModalBtn.addEventListener('click', hideModal);
+    }
+    
+    if (cancelHabitBtn) {
+      console.log("Setting up cancel button");
+      cancelHabitBtn.addEventListener('click', hideModal);
+    }
+    
+    // Close when clicking outside the modal
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        hideModal();
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Container for the whole page */
+  .dashboard-container.habits-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  /* Page header styles */
+  .page-header {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  .tagline {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  /* Notification messages */
+  .notice-message, .alert-message {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .notice-message {
+    background-color: #d1e7dd;
+    color: #0f5132;
+  }
+  
+  .alert-message {
+    background-color: #f8d7da;
+    color: #842029;
+  }
+  
+  /* Layout styles */
+  .content-layout {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .main-content {
+    flex: 2;
+  }
+  
+  .side-content {
+    flex: 1;
+  }
+  
+  /* Section styles */
+  .habits-section, .calendar-section, .stats-section, .tips-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Section header styles */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Add habit button styles */
+  .add-habit-btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .add-habit-btn:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Empty state styles */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+  }
+  
+  /* Habit card styles */
+  .habit-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .habit-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    border-left: 4px solid #eee;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .habit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .habit-card.completed {
+    border-left-color: #10b981;
+  }
+  
+  .habit-card.pending {
+    border-left-color: #f59e0b;
+  }
+  
+  .habit-info {
+    margin-bottom: 1rem;
+  }
+  
+  .habit-name {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+  }
+  
+  .habit-streak {
+    color: #6b7280;
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .habit-description {
+    color: #4b5563;
+    font-size: 0.875rem;
+    margin: 0.5rem 0 0 0;
+  }
+  
+  /* Habit action button styles */
+  .habit-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  
+  .toggle-habit-btn, .view-details-btn button, .edit-habit-btn, .delete-habit-btn {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.875rem;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .toggle-habit-btn {
+    background-color: #10b981;
+    color: white;
+    border: none;
+  }
+  
+  .habit-card.pending .toggle-habit-btn {
+    background-color: #f3f4f6;
+    color: #374151;
+  }
+  
+  .habit-card.pending .toggle-habit-btn:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .view-details-btn {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .view-details-btn button {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    width: 100%;
+  }
+  
+  .edit-habit-btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .delete-habit-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+  }
+  
+  /* Calendar styles */
+  .habit-calendar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .day-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .day-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  .day-marker {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+  }
+  
+  .day-marker.completed {
+    background-color: #10b981;
+  }
+  
+  .day-marker.today {
+    background-color: #f59e0b;
+  }
+  
+  /* Stats container styles */
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .stat-card {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .stat-card h3 {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3b82f6;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+  
+  /* Tips section styles */
+  .tip-card {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .tip-card h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: #4b5563;
+  }
+  
+  .tip-card p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+  
+  /* Modal styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal.hidden {
+    display: none;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280;
+  }
+  
+  /* Form styles */
+  .form-group {
+    margin-bottom: 1.25rem;
+    padding: 0 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+  }
+  
+  .form-group textarea {
+    min-height: 6rem;
+    resize: vertical;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .primary-button, .secondary-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+  
+  .primary-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+  }
+  
+  .primary-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .secondary-button {
+    background-color: #e5e7eb;
+    color: #374151;
+    border: none;
+  }
+  
+  .secondary-button:hover {
+    background-color: #d1d5db;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .content-layout {
+      flex-direction: column;
+    }
+    
+    .main-content, .side-content {
+      width: 100%;
+    }
+    
+    .habit-cards-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .stats-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .habit-actions {
+      flex-direction: column;
+    }
+    
+    .toggle-habit-btn, .view-details-btn button, .edit-habit-btn, .delete-habit-btn {
+      width: 100%;
+    }
+  }
+</style>

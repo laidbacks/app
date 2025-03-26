@@ -36,6 +36,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_210809) do
     t.index ["notification_type"], name: "index_notifications_on_notification_type"
     t.index ["status"], name: "index_notifications_on_status"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_182659) do
+  create_table "habit_logs", force: :cascade do |t|
+    t.integer "habit_id", null: false
+    t.integer "user_id", null: false
+    t.date "date", null: false
+    t.boolean "completed", default: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["habit_id", "date"], name: "index_habit_logs_on_habit_id_and_date", unique: true
+    t.index ["habit_id"], name: "index_habit_logs_on_habit_id"
+    t.index ["user_id"], name: "index_habit_logs_on_user_id"
+  end
+
+  create_table "habits", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "frequency"
+    t.boolean "active", default: true
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_habits_on_user_id"
+
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,4 +73,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_210809) do
 
   add_foreign_key "notification_schedules", "notifications"
   add_foreign_key "notifications", "users"
+
+  add_foreign_key "habit_logs", "habits"
+  add_foreign_key "habit_logs", "users"
+  add_foreign_key "habits", "users"
 end

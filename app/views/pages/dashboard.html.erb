@@ -55,27 +55,36 @@
     <section class="habits-section">
       <div class="section-header">
         <h2>Your Habits</h2>
-        <button class="add-habit-btn">+ Add New Habit</button>
+        <a href="/habits/new" class="add-habit-btn">+ Add New Habit</a>
       </div>
 
-      <!-- Today's habits -->
-      <div class="habits-container">
-        <% @sample_habits.each do |habit| %>
-          <div class="habit-card <%= habit[:status] %>">
-            <div class="habit-info">
-              <h3 class="habit-name"><%= habit[:name] %></h3>
-              <span class="habit-streak"><%= habit[:streak] %> day streak</span>
+      <% if @habits.empty? %>
+        <div class="empty-state">
+          <p>You don't have any habits yet. Start tracking by adding your first habit.</p>
+          <a href="/habits/new" class="primary-button">Add Your First Habit</a>
+        </div>
+      <% else %>
+        <!-- Today's habits -->
+        <div class="habits-container">
+          <% @habits.each do |habit| %>
+            <div class="habit-card <%= habit.habit_logs.find_by(date: Date.today)&.completed? ? 'completed' : 'pending' %>" data-habit-id="<%= habit.id %>">
+              <div class="habit-info">
+                <h3 class="habit-name"><%= habit.name %></h3>
+                <span class="habit-streak"><%= habit.current_streak || 0 %> day streak</span>
+              </div>
+              <div class="habit-actions">
+                <%= button_to habit.habit_logs.find_by(date: Date.today)&.completed? ? '✓ Completed' : 'Mark Complete',
+                      toggle_today_habit_path(habit),
+                      method: :patch,
+                      class: 'toggle-habit-btn' %>
+                <a href="/habits/<%= habit.id %>" class="view-details-btn">
+                  <button>View Details</button>
+                </a>
+              </div>
             </div>
-            <div class="habit-actions">
-              <% if habit[:status] == "completed" %>
-                <button class="completed-btn">✓ Completed</button>
-              <% else %>
-                <button class="complete-btn">Mark Complete</button>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% end %>
     </section>
 
     <!-- Insights and tips -->
@@ -87,7 +96,15 @@
             <div class="insight-icon">🏆</div>
             <div class="insight-text">
               <h3>Your Strongest Habit</h3>
-              <p>Drinking Water - 30 day streak!</p>
+              <p>
+                <% if @strongest_habit %>
+                  <span class="strongest-habit-name"><%= @strongest_habit.name %></span> - 
+                  <span class="strongest-habit-streak"><%= @strongest_habit.current_streak || 0 %> day streak!</span>
+                <% else %>
+                  <span class="strongest-habit-name">No habits yet</span> - 
+                  <span class="strongest-habit-streak">0 day streak!</span>
+                <% end %>
+              </p>
             </div>
           </div>
           <div class="insight-item">
@@ -373,6 +390,52 @@
     line-height: 1.5;
   }
 
+  .toggle-habit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .toggle-habit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .habit-card.pending .toggle-habit-btn {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .habit-card.pending .toggle-habit-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .view-details-btn button {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .view-details-btn button:hover {
+    background-color: #5a6370;
+  }
+
+  /* Ensure the habit-actions flex layout works properly */
+  .habit-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Responsive styles for smaller screens */
   @media (max-width: 768px) {
     .dashboard-header {
       flex-direction: column;
@@ -398,6 +461,10 @@
     
     .stat-value {
       margin-bottom: 0;
+    }
+
+    .habit-actions {
+      flex-direction: column;
     }
   }
 </style> 
