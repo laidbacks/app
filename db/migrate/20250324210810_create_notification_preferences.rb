@@ -8,6 +8,7 @@ class CreateNotificationPreferences < ActiveRecord::Migration[8.0]
       t.string :email_frequency, default: "immediately", null: false
       t.string :push_frequency, default: "immediately", null: false
       t.string :sms_frequency, default: "immediately", null: false
+      t.string :phone_number
 
       t.timestamps
     end

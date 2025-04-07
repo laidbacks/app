@@ -95,4 +95,7 @@ Rails.application.routes.draw do
   end
 
   resource :settings, only: [ :show, :update ]
+
+  # Password management
+  resource :password, only: [ :edit, :update ]
 end
