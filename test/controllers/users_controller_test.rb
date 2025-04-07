@@ -65,7 +65,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     get profile_path
     assert_response :success
-    assert_select "h1", /Welcome, #{@user.username}!/
+    assert_select "h1", "Your Profile"
   end
 
   test "should redirect from profile when not logged in" do

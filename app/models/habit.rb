@@ -14,7 +14,11 @@ class Habit < ApplicationRecord
 
   # Methods
   def completion_rate(start_date = 30.days.ago, end_date = Date.today)
-    logs_in_period = habit_logs.where(date: start_date..end_date)
+    # Ensure we're working with date objects for consistent comparison
+    start_date = start_date.to_date if start_date.respond_to?(:to_date)
+    end_date = end_date.to_date if end_date.respond_to?(:to_date)
+
+    logs_in_period = habit_logs.where("date >= ? AND date <= ?", start_date, end_date)
     total_logs = logs_in_period.count
     return 0 if total_logs.zero?
 
