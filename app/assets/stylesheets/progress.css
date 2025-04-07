@@ -1,0 +1,217 @@
+/* Progress Page Styles */
+.progress-dashboard {
+    padding: 1.5rem 0;
+}
+
+.page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Overview Cards */
+.overview-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.overview-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.overview-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.overview-card .card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Progress Table */
+.progress-section {
+    margin-bottom: 2rem;
+}
+
+.progress-section h2,
+.progress-charts h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.progress-table-container {
+    overflow-x: auto;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.progress-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.progress-table th {
+    background-color: rgba(241, 245, 249, 0.7);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.progress-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.progress-table tbody tr:hover {
+    background-color: rgba(241, 245, 249, 0.3);
+}
+
+.progress-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+}
+
+.badge-streak {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: rgba(79, 70, 229, 1);
+}
+
+.badge-best-streak {
+    background-color: rgba(236, 72, 153, 0.1);
+    color: rgba(219, 39, 119, 1);
+}
+
+/* Progress Bar */
+.progress {
+    height: 0.5rem;
+    background-color: rgba(226, 232, 240, 0.5);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 9999px;
+    background-color: var(--primary-color);
+    text-align: center;
+    color: white;
+    font-size: 0.75rem;
+    line-height: 0.5rem;
+    transition: width 0.6s ease;
+}
+
+/* Chart Section */
+.progress-charts {
+    margin-top: 3rem;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 1.5rem;
+}
+
+.chart-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.chart-card .card-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chart-card .card-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.chart-card .card-body {
+    height: 300px;
+    padding: 1rem;
+}
+
+/* Action Links */
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+.action-link:hover {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-state-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-content p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card .card-body {
+        height: 250px;
+    }
+}
