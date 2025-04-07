@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :habit_logs, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_one :notification_preference, dependent: :destroy
+  has_one :setting, dependent: :destroy
 
   before_validation :validate_username_uniqueness
 

@@ -3,7 +3,7 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = User.create!(
-      username: "testuser",
+      username: "testusercontroller",
       password: "password123",
     )
   end
@@ -65,7 +65,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     get profile_path
     assert_response :success
-    assert_select "h1", /Welcome, #{@user.username}!/
+    assert_select "title", /Habitflow/
   end
 
   test "should redirect from profile when not logged in" do

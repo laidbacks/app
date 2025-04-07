@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+default:
+  user: default
+  theme: system
+  notifications_enabled: true
+  email_notifications_enabled: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+user_one:
+  user: one
+  theme: light
+  notifications_enabled: true
+  email_notifications_enabled: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+user_two:
+  user: two
+  theme: dark
+  notifications_enabled: false
+  email_notifications_enabled: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %> 

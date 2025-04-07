@@ -3,24 +3,36 @@
 # Sample user fixtures for testing
 # Each fixture has a name (admin, regular_user) followed by attributes
 
+# The password for all fixture users is "password123"
+# The password_digest is created using BCrypt::Password.create("password123")
+
 default:
-  username: default_user
-  email: default@example.com
-  password_digest: <%= BCrypt::Password.create('password123') %>
+  username: testuser
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  email: test@example.com
+  full_name: Test User
+  bio: This is a test user account
+  timezone: America/New_York
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 one:
-  username: user_one
-  email: user_one@example.com
-  password_digest: <%= BCrypt::Password.create('password123') %>
+  username: user1
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  email: user1@example.com
+  full_name: User One
+  bio: Bio for user one
+  timezone: America/Los_Angeles
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 two:
-  username: user_two
-  email: user_two@example.com
-  password_digest: <%= BCrypt::Password.create('password123') %>
+  username: user2
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  email: user2@example.com
+  full_name: User Two
+  bio: Bio for user two
+  timezone: Europe/London
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 

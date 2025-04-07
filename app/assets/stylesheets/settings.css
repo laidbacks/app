@@ -1,0 +1,135 @@
+/* Settings Page Styles */
+
+.settings-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.settings-card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.settings-card .card-header {
+  background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+  color: white;
+  padding: 1.25rem;
+}
+
+.settings-section {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1.5rem;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.settings-section h5 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #343a40;
+  border-left: 4px solid #8E54E9;
+  padding-left: 10px;
+}
+
+/* Advanced notification options styling */
+.advanced-notification-options {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e9ecef;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.advanced-notification-options h6 {
+  color: #4776E6;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.frequency-select {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.frequency-select:focus {
+  border-color: #8E54E9;
+  box-shadow: 0 0 0 0.2rem rgba(142, 84, 233, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: #4776E6;
+  border-color: #4776E6;
+}
+
+.settings-save-btn {
+  background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+  border: none;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.settings-save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Toast notification styling */
+.settings-toast {
+  background-color: #28a745;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-toast .toast-header {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Success and error alerts */
+.alert-container {
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.alert-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  color: #28a745;
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+}
+
+.alert-info {
+  background-color: rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(13, 110, 253, 0.2);
+  color: #0d6efd;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

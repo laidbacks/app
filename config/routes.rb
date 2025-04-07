@@ -87,4 +87,6 @@ Rails.application.routes.draw do
 
     resources :habit_logs, only: [ :index ]
   end
+
+  resource :settings, only: [ :show, :update ]
 end
