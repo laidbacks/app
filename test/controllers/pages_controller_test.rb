@@ -22,14 +22,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { username: "testuser", password: "password123" }
     assert_redirected_to root_path
     follow_redirect!
-    
+
     # We should now be on the dashboard
     assert_template :dashboard
-    
+
     # Verify quotes are assigned
     assert_not_nil assigns(:quotes)
     assert_not_nil assigns(:quote)
-    
+
     # Verify quotes come from the QUOTES constant
     assert_equal PagesController::QUOTES_COUNT, assigns(:quotes).length
     assert_includes assigns(:quotes), assigns(:quote)
