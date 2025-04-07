@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       post "profile/avatar", to: "profiles#update_avatar"
       delete "profile/avatar", to: "profiles#remove_avatar"
 
+      # Progress routes
+      get "progress", to: "progress#index"
+
       resources :notifications, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :stats
