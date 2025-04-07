@@ -5,10 +5,16 @@
       <h1>Hello, <%= @user.username %>!</h1>
       <p class="tagline">Today is a new opportunity to build great habits.</p>
     </div>
-    <div class="quote-container">
-      <blockquote class="quote-of-day">
-        "<%= @quote %>"
+    <div class="quote-container" id="quote-container">
+      <blockquote class="quote-of-day" id="quote-text">
+        <% quote_parts = @quote.split(' – ') %>
+        <% if quote_parts.length == 2 %>
+          "<%= quote_parts[0] %>" <span class="quote-author">– <%= quote_parts[1] %></span>
+        <% else %>
+          "<%= @quote %>"
+        <% end %>
       </blockquote>
+      <div class="quote-tip">Tap to change</div>
     </div>
   </header>
 
@@ -120,6 +126,69 @@
   </main>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the DOM elements
+    const quoteContainer = document.getElementById('quote-container');
+    const quoteText = document.getElementById('quote-text');
+    
+    // Store all quotes in JavaScript
+    const quotes = <%= raw @quotes.to_json %>;
+    
+    // Current quote index
+    let currentQuoteIndex = quotes.indexOf('<%= @quote %>');
+    if (currentQuoteIndex === -1) currentQuoteIndex = 0;
+
+    // Function to format the quote with styled author
+    function formatQuote(quote) {
+      // Split the quote at the dash to separate author
+      const parts = quote.split(' – ');
+      if (parts.length === 2) {
+        return `"${parts[0]}" <span class="quote-author">– ${parts[1]}</span>`;
+      }
+      return `"${quote}"`;
+    }
+    
+    // Format the initial quote
+    quoteText.innerHTML = formatQuote(quotes[currentQuoteIndex]);
+    
+    // Function to get a random quote different from the current one
+    function getRandomQuote() {
+      if (quotes.length <= 1) return quotes[0];
+      
+      // Find a random index different from the current
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * quotes.length);
+      } while (newIndex === currentQuoteIndex);
+      
+      currentQuoteIndex = newIndex;
+      return quotes[newIndex];
+    }
+    
+    // Add click event listener to change the quote
+    quoteContainer.addEventListener('click', function() {
+      // Add a transition effect
+      quoteText.style.opacity = '0';
+      
+      setTimeout(function() {
+        // Update the quote
+        const newQuote = getRandomQuote();
+        quoteText.innerHTML = formatQuote(newQuote);
+        
+        // Fade back in
+        quoteText.style.opacity = '1';
+      }, 300);
+    });
+    
+    // Add hover styles to indicate it's clickable
+    quoteContainer.style.cursor = 'pointer';
+    
+    // Add transition for smooth effect
+    quoteText.style.transition = 'opacity 0.3s ease';
+  });
+</script>
+
 <style>
   /* Dashboard Styles */
   .dashboard-container {
@@ -153,16 +222,77 @@
     max-width: 400px;
     background: linear-gradient(135deg, #6e8efb, #a777e3);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 1.8rem;
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-left: 5px solid #ffd166;
+  }
+
+  .quote-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .quote-container:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  }
+
+  .quote-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .quote-container:hover::after {
+    opacity: 1;
+  }
+
+  .quote-container:before {
+    content: '"';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 5rem;
+    font-family: 'Georgia', serif;
+    color: rgba(255, 255, 255, 0.1);
+    line-height: 1;
   }
 
   .quote-of-day {
+    font-family: 'Georgia', serif;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .quote-author {
+    color: #ffd166;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+  }
+
+  .quote-tip {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    margin-top: 0.75rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
   }
 
   .dashboard-content {
