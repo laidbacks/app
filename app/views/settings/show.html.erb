@@ -1,0 +1,132 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <!-- New feature highlight alert -->
+      <div class="alert-container alert-info mb-4">
+        <div class="d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <strong>New Feature!</strong> We've enhanced our notification system. Check out the advanced notification settings below to customize how you receive updates.
+          </div>
+        </div>
+      </div>
+
+      <div class="card settings-card">
+        <div class="card-header">
+          <h4 class="mb-0">Settings</h4>
+        </div>
+        <div class="card-body" data-controller="settings">
+          <!-- Alert containers for notifications -->
+          <div data-settings-target="errorContainer" class="alert-container alert-danger d-none" role="alert"></div>
+          <div data-settings-target="successContainer" class="alert-container alert-success d-none" role="alert"></div>
+          
+          <%= form_with(model: @setting, url: settings_path, method: :patch, data: { action: "submit->settings#saveAdvancedPreferences", settings_target: "form" }, local: true) do |form| %>
+            <div class="settings-section">
+              <h5>Theme Preferences</h5>
+              <div class="mb-3" data-controller="theme">
+                <%= form.label :theme, class: "form-label" %>
+                <%= form.select :theme, 
+                              options_for_select([['Light', 'light'], ['Dark', 'dark'], ['System Default', 'system']], @setting.theme),
+                              {}, 
+                              { class: "form-select frequency-select", 
+                                data: { 
+                                  theme_target: "themeSelect",
+                                  action: "change->theme#change"
+                                } 
+                              } %>
+                <div class="form-text">Choose how HabitFlow appears to you</div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <h5>Notification Settings</h5>
+              <div class="mb-3 form-check">
+                <%= form.check_box :notifications_enabled, class: "form-check-input", data: { settings_target: "notificationsEnabled" } %>
+                <%= form.label :notifications_enabled, "Enable in-app notifications", class: "form-check-label" %>
+                <div class="form-text mt-1">Receive notifications within the application</div>
+              </div>
+              
+              <div class="mb-3 form-check">
+                <%= form.check_box :email_notifications_enabled, class: "form-check-input", data: { settings_target: "emailNotificationsEnabled" } %>
+                <%= form.label :email_notifications_enabled, "Enable email notifications", class: "form-check-label" %>
+                <div class="form-text mt-1">Receive notifications via email</div>
+              </div>
+              
+              <!-- Advanced notification options -->
+              <div data-settings-target="advancedNotificationOptions" class="advanced-notification-options">
+                <h6>Advanced Notification Preferences</h6>
+                
+                <!-- Email frequency -->
+                <div class="mb-4">
+                  <label for="email_frequency" class="form-label">Email Notification Frequency</label>
+                  <select id="email_frequency" class="form-select frequency-select" data-settings-target="emailFrequency">
+                    <option value="immediately">Immediately</option>
+                    <option value="daily_digest">Daily Digest</option>
+                    <option value="weekly_digest">Weekly Digest</option>
+                  </select>
+                  <div class="form-text">How often you want to receive email notifications</div>
+                </div>
+                
+                <!-- Push notifications -->
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="push_enabled" data-settings-target="pushEnabled">
+                  <label class="form-check-label" for="push_enabled">Enable push notifications</label>
+                  <div class="form-text mt-1">Receive notifications on your device</div>
+                </div>
+                
+                <div class="mb-4">
+                  <label for="push_frequency" class="form-label">Push Notification Frequency</label>
+                  <select id="push_frequency" class="form-select frequency-select" data-settings-target="pushFrequency">
+                    <option value="immediately">Immediately</option>
+                    <option value="batched">Batched (hourly)</option>
+                  </select>
+                  <div class="form-text">Control how often push notifications are sent</div>
+                </div>
+                
+                <!-- SMS notifications -->
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="sms_enabled" data-settings-target="smsEnabled">
+                  <label class="form-check-label" for="sms_enabled">Enable SMS notifications</label>
+                  <div class="form-text mt-1">Receive text message notifications</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="sms_frequency" class="form-label">SMS Notification Frequency</label>
+                  <select id="sms_frequency" class="form-select frequency-select" data-settings-target="smsFrequency">
+                    <option value="immediately">Immediately</option>
+                    <option value="daily_digest">Daily Digest</option>
+                  </select>
+                  <div class="form-text">Control how often SMS notifications are sent</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit "Save Settings", class: "btn settings-save-btn" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if flash[:notice] %>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="toast show settings-toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Success</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <%= flash[:notice] %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= stylesheet_link_tag "settings", "data-turbo-track": "reload" %> 

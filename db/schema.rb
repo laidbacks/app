@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_000000) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_171611) do
   create_table "habit_logs", force: :cascade do |t|
     t.integer "habit_id", null: false
     t.integer "user_id", null: false
@@ -75,6 +75,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_000000) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "theme", default: "system"
+    t.boolean "notifications_enabled", default: true
+    t.boolean "email_notifications_enabled", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -85,6 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_000000) do
     t.text "bio"
     t.string "timezone"
     t.string "avatar"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
@@ -94,4 +105,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_000000) do
   add_foreign_key "notification_preferences", "users"
   add_foreign_key "notification_schedules", "notifications"
   add_foreign_key "notifications", "users"
+  add_foreign_key "settings", "users"
 end

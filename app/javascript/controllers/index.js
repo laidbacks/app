@@ -9,6 +9,12 @@ application.register("hello", HelloController)
 import SidebarController from "./sidebar_controller"
 application.register("sidebar", SidebarController)
 
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)
+
+import SettingsController from "./settings_controller"
+application.register("settings", SettingsController)
+
 // Import our new habit controllers
 import HabitFormController from "../components/HabitForm"
 import HabitListController from "../components/HabitList"
@@ -28,4 +34,4 @@ application.register("dashboard-habits", DashboardHabitsController)
 
 console.log("Registered all Stimulus controllers:",
     ["habit-form", "habit-list", "habit-detail", "habit-log",
-        "habit-calendar", "habit-stats", "dashboard-habits"]);
+        "habit-calendar", "habit-stats", "dashboard-habits", "theme", "settings"]);
