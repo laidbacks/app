@@ -80,12 +80,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_000000) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "full_name"
     t.string "email"
+    t.string "full_name"
     t.text "bio"
     t.string "timezone"
     t.string "avatar"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

@@ -58,6 +58,7 @@
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="date (v3.4.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.10.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="devise (v4.9.4, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.6.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dotenv (v3.1.7, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="drb (v2.2.1, mise: 3.4.1) [gem]" level="application" />
@@ -96,6 +97,7 @@
     <orderEntry type="library" scope="PROVIDED" name="net-ssh (v7.3.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.7.4, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.18.3, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ostruct (v0.6.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parallel (v1.26.3, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.7.1, mise: 3.4.1) [gem]" level="application" />
@@ -121,6 +123,7 @@
     <orderEntry type="library" scope="PROVIDED" name="redis-client (v0.24.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.10.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="responders (v3.1.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.13.3, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.13.3, mise: 3.4.1) [gem]" level="application" />
@@ -157,6 +160,7 @@
     <orderEntry type="library" scope="PROVIDED" name="unicode-emoji (v4.0.4, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uri (v1.0.3, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="useragent (v0.16.11, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="warden (v1.2.9, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.2.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket (v1.2.11, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.7.7, mise: 3.4.1) [gem]" level="application" />
@@ -173,12 +177,17 @@
     <option name="generators">
       <list>
         <option value="active_record:application_record" />
+        <option value="active_record:devise" />
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="authentication" />
         <option value="benchmark" />
         <option value="channel" />
         <option value="controller" />
+        <option value="devise" />
+        <option value="devise:controllers" />
+        <option value="devise:install" />
+        <option value="devise:views" />
         <option value="erb:authentication" />
         <option value="factory_bot:model" />
         <option value="generator" />
@@ -190,7 +199,10 @@
         <option value="mailer" />
         <option value="migration" />
         <option value="model" />
+        <option value="mongoid:devise" />
         <option value="resource" />
+        <option value="responders:install" />
+        <option value="responders_controller" />
         <option value="rspec:channel" />
         <option value="rspec:controller" />
         <option value="rspec:feature" />
@@ -240,12 +252,17 @@
     <option name="myGenerators">
       <list>
         <option value="active_record:application_record" />
+        <option value="active_record:devise" />
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="authentication" />
         <option value="benchmark" />
         <option value="channel" />
         <option value="controller" />
+        <option value="devise" />
+        <option value="devise:controllers" />
+        <option value="devise:install" />
+        <option value="devise:views" />
         <option value="erb:authentication" />
         <option value="factory_bot:model" />
         <option value="generator" />
@@ -257,7 +274,10 @@
         <option value="mailer" />
         <option value="migration" />
         <option value="model" />
+        <option value="mongoid:devise" />
         <option value="resource" />
+        <option value="responders:install" />
+        <option value="responders_controller" />
         <option value="rspec:channel" />
         <option value="rspec:controller" />
         <option value="rspec:feature" />
