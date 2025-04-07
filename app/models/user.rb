@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_one :setting, dependent: :destroy
 
   before_validation :validate_username_uniqueness
+  after_create :create_default_preferences
 
   # Returns user profile data
   def profile_data
@@ -35,5 +36,19 @@ class User < ApplicationRecord
   def validate_username_uniqueness
     # The actual validation is handled by validates :username, uniqueness: true
     # This is just a hook for tests to use
+  end
+
+  # Create default notification preferences for new users
+  def create_default_preferences
+    create_notification_preference(
+      email_enabled: true,
+      push_enabled: true,
+      sms_enabled: false,
+      email_frequency: "daily_digest",
+      push_frequency: "immediately",
+      sms_frequency: "immediately"
+    ) unless notification_preference
+
+    create_setting(Setting.default_settings) unless setting
   end
 end

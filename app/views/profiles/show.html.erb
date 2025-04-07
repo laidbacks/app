@@ -93,7 +93,7 @@
       <h2>Account Settings</h2>
       
       <div class="settings-actions">
-        <%= link_to "#", class: "settings-action" do %>
+        <%= link_to edit_password_path, class: "settings-action" do %>
           <i class="fas fa-lock"></i>
           <div class="action-details">
             <span class="action-title">Change Password</span>
@@ -102,7 +102,7 @@
           <i class="fas fa-chevron-right"></i>
         <% end %>
         
-        <%= link_to "#", class: "settings-action" do %>
+        <%= link_to notifications_path, class: "settings-action" do %>
           <i class="fas fa-bell"></i>
           <div class="action-details">
             <span class="action-title">Notification Preferences</span>
