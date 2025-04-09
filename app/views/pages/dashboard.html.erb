@@ -2,7 +2,18 @@
   <!-- Header with greeting and motivational quote -->
   <header class="dashboard-header">
     <div class="user-welcome">
-      <h1>Hello, <%= @user.username %>!</h1>
+      <div class="greeting-container">
+        <div class="greeting-prefix-wrapper">
+          <span class="greeting-prefix">Hello</span>
+          <span class="greeting-comma">,</span>
+        </div>
+        <h1 class="username-container" id="username-container">
+          <% @user.username.each_char.with_index do |char, index| %>
+            <span class="username-letter" style="animation-delay: <%= 0.1 * index %>s;"><%= char %></span>
+          <% end %>
+          <span class="greeting-exclamation">!</span>
+        </h1>
+      </div>
       <p class="tagline">Today is a new opportunity to build great habits.</p>
     </div>
     <div class="quote-container">
@@ -120,6 +131,107 @@
   </main>
 </div>
 
+<!-- Add JavaScript for greeting animations -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all the letters in the username
+    const usernameLetters = document.querySelectorAll('.username-letter');
+    const greetingContainer = document.querySelector('.greeting-container');
+    const greetingPrefix = document.querySelector('.greeting-prefix');
+    
+    // Add hover event listeners for enhanced effects
+    usernameLetters.forEach(letter => {
+      letter.addEventListener('mouseover', function() {
+        // Generate a random bright color for the letter
+        const hue = Math.floor(Math.random() * 60) + 0; // Red to Yellow range
+        this.style.color = `hsl(${hue}, 100%, 50%)`;
+        
+        // Add a glow effect
+        this.style.textShadow = `0 0 15px hsla(${hue}, 100%, 50%, 0.8)`;
+      });
+      
+      letter.addEventListener('mouseout', function() {
+        // Reset color and shadow after a delay
+        setTimeout(() => {
+          this.style.color = '';
+          this.style.textShadow = '';
+        }, 500);
+      });
+      
+      // Add click effect
+      letter.addEventListener('click', function() {
+        // Play a bounce animation
+        this.style.animation = 'none'; // Reset animation
+        void this.offsetWidth; // Trigger reflow
+        this.style.animation = 'letter-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      });
+    });
+    
+    // Add 3D tilt effect based on mouse position
+    greetingContainer.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the element
+      const y = e.clientY - rect.top; // y position within the element
+      
+      // Calculate rotation values
+      const xRotation = (y - rect.height/2) / 20;
+      const yRotation = (rect.width/2 - x) / 20;
+      
+      // Apply the rotation transform
+      this.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) translateY(-3px)`;
+      
+      // Add dynamic shadows based on tilt
+      usernameLetters.forEach((letter, index) => {
+        const letterX = letter.getBoundingClientRect().left - rect.left;
+        const letterXRatio = letterX / rect.width;
+        const letterDepth = Math.sin(letterXRatio * Math.PI) * 30;
+        
+        letter.style.transform = `translateZ(${letterDepth}px)`;
+        letter.style.textShadow = `
+          ${yRotation/3}px ${xRotation/3}px 5px rgba(0,0,0,0.2),
+          0 10px 20px rgba(0,0,0,0.1)
+        `;
+      });
+    });
+    
+    // Reset the transform when mouse leaves
+    greetingContainer.addEventListener('mouseleave', function() {
+      // Reset the transform
+      this.style.transform = '';
+      
+      // Reset the gradient
+      greetingPrefix.style.backgroundImage = '';
+      
+      // Reset all letter transforms
+      usernameLetters.forEach(letter => {
+        letter.style.transform = '';
+        letter.style.textShadow = '';
+      });
+    });
+    
+    // Add special effects when hovering over the entire greeting
+    greetingContainer.addEventListener('mouseenter', function() {
+      // Increase the intensity of the gradient
+      greetingPrefix.style.backgroundImage = 'linear-gradient(45deg, #ff3366, #ff9966)';
+    });
+  });
+</script>
+
+<!-- Add keyframe for letter pop animation -->
+<style>
+  @keyframes letter-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5) translateY(-15px);
+    }
+    100% {
+      transform: scale(1) translateY(0);
+    }
+  }
+</style>
+
 <style>
   /* Dashboard Styles */
   .dashboard-container {
@@ -137,16 +249,141 @@
     flex-wrap: wrap;
   }
 
-  .user-welcome h1 {
+  .user-welcome {
+    margin-bottom: 1.5rem;
+  }
+
+  .greeting-container {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    position: relative;
+    margin-bottom: 0.5rem;
+    perspective: 1000px; /* Add perspective for 3D effects */
+    transition: transform 0.3s ease;
+  }
+
+  .greeting-prefix-wrapper {
+    display: flex;
+    align-items: baseline;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .greeting-prefix {
     font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF5E62, #FF9966);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+    position: relative;
+    line-height: 1.2;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 2px 0 rgba(255, 255, 255, 0.3),
+                0 3px 0 rgba(255, 255, 255, 0.2),
+                0 10px 20px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+  }
+
+  .greeting-comma {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-right: 0.3rem;
+    color: #FF8E53;
+    animation: comma-bounce 3s ease-in-out infinite;
+    display: inline-block;
+    transform-origin: bottom;
+  }
+
+  .greeting-prefix-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #FF5E62, #FF9966);
+    border-radius: 5px;
+    animation: underline-pulse 3s ease-in-out infinite;
+  }
+
+  .username-container {
+    font-size: 2.6rem;
+    font-weight: 800;
     margin: 0;
+    display: flex;
+    align-items: baseline;
+    line-height: 1.2;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .username-letter {
+    display: inline-block;
+    animation: letter-appear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    transform: translateY(20px) rotate(10deg);
+    transition: all 0.3s ease;
+    position: relative;
+    transform-style: preserve-3d;
     color: #333;
+  }
+
+  .username-letter:hover {
+    color: #FF5E62;
+    transform: translateY(-10px) scale(1.2) translateZ(20px);
+    animation: letter-wiggle 1s ease infinite;
+    z-index: 2;
+    text-shadow: 0 6px 10px rgba(255, 94, 98, 0.3);
+  }
+
+  .username-letter::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #FF9966;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .username-letter:hover::after {
+    transform: scaleX(1);
+  }
+
+  .greeting-exclamation {
+    color: #FF5E62;
+    font-size: 2.6rem;
+    display: inline-block;
+    animation: exclamation-appear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards, 
+               exclamation-pulse 2s ease-in-out 1.5s infinite;
+    opacity: 0;
+    transform: scale(0) rotate(20deg);
+    margin-left: 0.2rem;
   }
 
   .tagline {
     font-size: 1.1rem;
     color: #666;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
+    padding-left: 0.8rem;
+    border-left: 3px solid #FF9966;
+    position: relative;
+    transition: all 0.3s ease;
+    max-width: 90%;
+  }
+
+  .tagline:hover {
+    transform: translateX(5px);
+    color: #555;
+    border-left-color: #FF5E62;
   }
 
   .quote-container {
@@ -466,5 +703,108 @@
     .habit-actions {
       flex-direction: column;
     }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes underline-pulse {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scaleX(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1.05);
+    }
+  }
+
+  @keyframes letter-appear {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) rotate(10deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
+
+  @keyframes letter-wiggle {
+    0%, 100% {
+      transform: translateY(-10px) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(3deg);
+    }
+  }
+
+  @keyframes exclamation-appear {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(20deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.3) rotate(0);
+    }
+    70% {
+      transform: scale(0.9) rotate(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
+  }
+
+  @keyframes exclamation-pulse {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 5px rgba(255, 94, 98, 0.3);
+    }
+    50% {
+      transform: scale(1.2);
+      text-shadow: 0 0 15px rgba(255, 94, 98, 0.5);
+    }
+  }
+
+  @keyframes comma-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Add a subtle shadow underneath the greeting */
+  .greeting-container::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 15px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+
+  .greeting-container:hover::after {
+    opacity: 0.7;
+    width: 85%;
+    filter: blur(6px);
   }
 </style> 
