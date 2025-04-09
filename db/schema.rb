@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_07_171611) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_201114) do
   create_table "habit_logs", force: :cascade do |t|
     t.integer "habit_id", null: false
     t.integer "user_id", null: false
@@ -85,13 +85,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_171611) do
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
+  create_table "uploads", force: :cascade do |t|
+    t.string "name"
+    t.text "file_data"
+    t.string "description"
+    t.integer "habit_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["habit_id"], name: "index_uploads_on_habit_id"
+    t.index ["user_id"], name: "index_uploads_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
     t.string "full_name"
+    t.string "email"
     t.text "bio"
     t.string "timezone"
     t.string "avatar"
@@ -106,4 +118,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_171611) do
   add_foreign_key "notification_schedules", "notifications"
   add_foreign_key "notifications", "users"
   add_foreign_key "settings", "users"
+  add_foreign_key "uploads", "habits"
+  add_foreign_key "uploads", "users"
 end

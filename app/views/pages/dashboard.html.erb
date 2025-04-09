@@ -2,7 +2,18 @@
   <!-- Header with greeting and motivational quote -->
   <header class="dashboard-header">
     <div class="user-welcome">
-      <h1>Hello, <%= @user.username %>!</h1>
+      <div class="greeting-container">
+        <div class="greeting-prefix-wrapper">
+          <span class="greeting-prefix">Hello</span>
+          <span class="greeting-comma">,</span>
+        </div>
+        <h1 class="username-container" id="username-container">
+          <% @user.username.each_char.with_index do |char, index| %>
+            <span class="username-letter" style="animation-delay: <%= 0.1 * index %>s;"><%= char %></span>
+          <% end %>
+          <span class="greeting-exclamation">!</span>
+        </h1>
+      </div>
       <p class="tagline">Today is a new opportunity to build great habits.</p>
     </div>
     <div class="quote-container" id="quote-container">
@@ -125,6 +136,68 @@
     </section>
   </main>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the DOM elements
+    const quoteContainer = document.getElementById('quote-container');
+    const quoteText = document.getElementById('quote-text');
+    
+    // Store all quotes in JavaScript
+    const quotes = <%= raw @quotes.to_json %>;
+    
+    // Current quote index
+    let currentQuoteIndex = quotes.indexOf('<%= @quote %>');
+    if (currentQuoteIndex === -1) currentQuoteIndex = 0;
+
+    // Function to format the quote with styled author
+    function formatQuote(quote) {
+      // Split the quote at the dash to separate author
+      const parts = quote.split(' – ');
+      if (parts.length === 2) {
+        return `"${parts[0]}" <span class="quote-author">– ${parts[1]}</span>`;
+      }
+      return `"${quote}"`;
+    }
+    
+    // Format the initial quote
+    quoteText.innerHTML = formatQuote(quotes[currentQuoteIndex]);
+    
+    // Function to get a random quote different from the current one
+    function getRandomQuote() {
+      if (quotes.length <= 1) return quotes[0];
+      
+      // Find a random index different from the current
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * quotes.length);
+      } while (newIndex === currentQuoteIndex);
+      
+      currentQuoteIndex = newIndex;
+      return quotes[newIndex];
+    }
+    
+    // Add click event listener to change the quote
+    quoteContainer.addEventListener('click', function() {
+      // Add a transition effect
+      quoteText.style.opacity = '0';
+      
+      setTimeout(function() {
+        // Update the quote
+        const newQuote = getRandomQuote();
+        quoteText.innerHTML = formatQuote(newQuote);
+        
+        // Fade back in
+        quoteText.style.opacity = '1';
+      }, 300);
+    });
+    
+    // Add hover styles to indicate it's clickable
+    quoteContainer.style.cursor = 'pointer';
+    
+    // Add transition for smooth effect
+    quoteText.style.transition = 'opacity 0.3s ease';
+  });
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -206,16 +279,141 @@
     flex-wrap: wrap;
   }
 
-  .user-welcome h1 {
+  .user-welcome {
+    margin-bottom: 1.5rem;
+  }
+
+  .greeting-container {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    position: relative;
+    margin-bottom: 0.5rem;
+    perspective: 1000px; /* Add perspective for 3D effects */
+    transition: transform 0.3s ease;
+  }
+
+  .greeting-prefix-wrapper {
+    display: flex;
+    align-items: baseline;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .greeting-prefix {
     font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF5E62, #FF9966);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+    position: relative;
+    line-height: 1.2;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 2px 0 rgba(255, 255, 255, 0.3),
+                0 3px 0 rgba(255, 255, 255, 0.2),
+                0 10px 20px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+  }
+
+  .greeting-comma {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-right: 0.3rem;
+    color: #FF8E53;
+    animation: comma-bounce 3s ease-in-out infinite;
+    display: inline-block;
+    transform-origin: bottom;
+  }
+
+  .greeting-prefix-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #FF5E62, #FF9966);
+    border-radius: 5px;
+    animation: underline-pulse 3s ease-in-out infinite;
+  }
+
+  .username-container {
+    font-size: 2.6rem;
+    font-weight: 800;
     margin: 0;
+    display: flex;
+    align-items: baseline;
+    line-height: 1.2;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .username-letter {
+    display: inline-block;
+    animation: letter-appear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    transform: translateY(20px) rotate(10deg);
+    transition: all 0.3s ease;
+    position: relative;
+    transform-style: preserve-3d;
     color: #333;
+  }
+
+  .username-letter:hover {
+    color: #FF5E62;
+    transform: translateY(-10px) scale(1.2) translateZ(20px);
+    animation: letter-wiggle 1s ease infinite;
+    z-index: 2;
+    text-shadow: 0 6px 10px rgba(255, 94, 98, 0.3);
+  }
+
+  .username-letter::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #FF9966;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .username-letter:hover::after {
+    transform: scaleX(1);
+  }
+
+  .greeting-exclamation {
+    color: #FF5E62;
+    font-size: 2.6rem;
+    display: inline-block;
+    animation: exclamation-appear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards, 
+               exclamation-pulse 2s ease-in-out 1.5s infinite;
+    opacity: 0;
+    transform: scale(0) rotate(20deg);
+    margin-left: 0.2rem;
   }
 
   .tagline {
     font-size: 1.1rem;
     color: #666;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
+    padding-left: 0.8rem;
+    border-left: 3px solid #FF9966;
+    position: relative;
+    transition: all 0.3s ease;
+    max-width: 90%;
+  }
+
+  .tagline:hover {
+    transform: translateX(5px);
+    color: #555;
+    border-left-color: #FF5E62;
   }
 
   .quote-container {
@@ -596,5 +794,108 @@
     .habit-actions {
       flex-direction: column;
     }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes underline-pulse {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scaleX(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1.05);
+    }
+  }
+
+  @keyframes letter-appear {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) rotate(10deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
+
+  @keyframes letter-wiggle {
+    0%, 100% {
+      transform: translateY(-10px) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(3deg);
+    }
+  }
+
+  @keyframes exclamation-appear {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(20deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.3) rotate(0);
+    }
+    70% {
+      transform: scale(0.9) rotate(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
+  }
+
+  @keyframes exclamation-pulse {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 5px rgba(255, 94, 98, 0.3);
+    }
+    50% {
+      transform: scale(1.2);
+      text-shadow: 0 0 15px rgba(255, 94, 98, 0.5);
+    }
+  }
+
+  @keyframes comma-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Add a subtle shadow underneath the greeting */
+  .greeting-container::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 15px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+
+  .greeting-container:hover::after {
+    opacity: 0.7;
+    width: 85%;
+    filter: blur(6px);
   }
 </style> 
