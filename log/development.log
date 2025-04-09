@@ -5440,3 +5440,321 @@ Started GET "/assets/profile.css" for ::1 at 2025-04-07 18:13:25 -0400
 Started GET "/assets/settings.css" for ::1 at 2025-04-07 18:13:26 -0400
 Started GET "/assets/theme.css" for ::1 at 2025-04-07 18:13:26 -0400
 Started GET "/assets/notifications.css" for ::1 at 2025-04-07 18:13:26 -0400
+Started GET "/" for 127.0.0.1 at 2025-04-09 16:59:38 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Habitflow'*/[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/landing.html.erb within layouts/application
+  Rendered pages/landing.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered shared/_sidebar.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 34.9ms | GC: 0.0ms)
+Completed 200 OK in 1772ms (Views: 467.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-04-09 16:59:40 -0400
+Started GET "/assets/application-b2984836.css" for 127.0.0.1 at 2025-04-09 16:59:40 -0400
+Started GET "/assets/notifications-444f33c0.css" for 127.0.0.1 at 2025-04-09 16:59:40 -0400
+Processing by PagesController#home as HTML
+Started GET "/assets/progress-d1c7b519.css" for 127.0.0.1 at 2025-04-09 16:59:40 -0400
+Started GET "/assets/settings-5e6583d8.css" for 127.0.0.1 at 2025-04-09 16:59:41 -0400
+  Rendering layout layouts/application.html.erb
+  Rendering pages/landing.html.erb within layouts/application
+  Rendered pages/landing.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered shared/_sidebar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | GC: 0.0ms)
+Completed 200 OK in 872ms (Views: 4.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/sidebar-72e05ca4.css" for 127.0.0.1 at 2025-04-09 16:59:41 -0400
+Started GET "/assets/users-51c92c74.css" for 127.0.0.1 at 2025-04-09 16:59:41 -0400
+Started GET "/assets/sidebar.css" for 127.0.0.1 at 2025-04-09 16:59:41 -0400
+Started GET "/assets/users.css" for 127.0.0.1 at 2025-04-09 16:59:41 -0400
+Started GET "/assets/user_profile.css" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/notifications.css" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/theme.css" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/profile.css" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/settings.css" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/application-bfcdf840.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/turbo.min-1262d735.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/stimulus.min-4b1e420e.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/stimulus-loading-1fc53fe7.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/controllers/application-fab0f35b.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/controllers/hello_controller-708796bd.js" for 127.0.0.1 at 2025-04-09 16:59:42 -0400
+Started GET "/assets/sidebar.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/users.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/user_profile.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/notifications.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/theme.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/settings.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/profile.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/controllers/index-9273c2e4.js" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/profile-8ed9cbf9.css" for 127.0.0.1 at 2025-04-09 16:59:43 -0400
+Started GET "/assets/controllers/notification_schedule_controller-0ee32a3c.js" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/theme-bb51a1ff.css" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/controllers/profile_controller-58ac1448.js" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/user_profile-d812660f.css" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/controllers/sidebar_controller-d0eb5fcc.js" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/controllers/theme_controller-c2433a61.js" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/controllers/application" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/sidebar.css" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/users.css" for 127.0.0.1 at 2025-04-09 16:59:44 -0400
+Started GET "/assets/user_profile.css" for 127.0.0.1 at 2025-04-09 16:59:45 -0400
+Started GET "/assets/notifications.css" for 127.0.0.1 at 2025-04-09 16:59:45 -0400
+Started GET "/assets/theme.css" for 127.0.0.1 at 2025-04-09 16:59:45 -0400
+Started GET "/assets/settings.css" for 127.0.0.1 at 2025-04-09 16:59:45 -0400
+Started GET "/assets/profile.css" for 127.0.0.1 at 2025-04-09 16:59:45 -0400
+Started GET "/assets/components/HabitCalendar" for 127.0.0.1 at 2025-04-09 16:59:46 -0400
+Started GET "/assets/controllers/notification_edit_controller-ac6f3957.js" for 127.0.0.1 at 2025-04-09 16:59:46 -0400
+Started GET "/assets/components/HabitForm" for 127.0.0.1 at 2025-04-09 16:59:46 -0400
+Started GET "/assets/controllers/notifications_controller-457ec838.js" for 127.0.0.1 at 2025-04-09 16:59:47 -0400
+Started GET "/assets/components/DashboardHabits" for 127.0.0.1 at 2025-04-09 16:59:47 -0400
+Started GET "/assets/controllers/sidebar_controller" for 127.0.0.1 at 2025-04-09 16:59:47 -0400
+Started GET "/assets/controllers/settings_controller-4fcfd334.js" for 127.0.0.1 at 2025-04-09 16:59:48 -0400
+Started GET "/assets/controllers/settings_controller" for 127.0.0.1 at 2025-04-09 16:59:48 -0400
+Started GET "/assets/components/HabitList" for 127.0.0.1 at 2025-04-09 16:59:48 -0400
+Started GET "/assets/components/HabitStats" for 127.0.0.1 at 2025-04-09 16:59:48 -0400
+Started GET "/assets/controllers/notification_edit_controller-ac6f3957.js" for 127.0.0.1 at 2025-04-09 16:59:49 -0400
+Started GET "/assets/controllers/notifications_controller-457ec838.js" for 127.0.0.1 at 2025-04-09 16:59:49 -0400
+Started GET "/assets/controllers/settings_controller-4fcfd334.js" for 127.0.0.1 at 2025-04-09 16:59:49 -0400
+Started GET "/assets/controllers/application" for 127.0.0.1 at 2025-04-09 16:59:50 -0400
+Started GET "/assets/components/HabitDetail" for 127.0.0.1 at 2025-04-09 16:59:50 -0400
+Started GET "/assets/controllers/theme_controller" for 127.0.0.1 at 2025-04-09 16:59:50 -0400
+Started GET "/" for ::1 at 2025-04-09 17:05:45 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Habitflow'*/[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/landing.html.erb within layouts/application
+  Rendered pages/landing.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered shared/_sidebar.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.5ms | GC: 0.0ms)
+Completed 200 OK in 1788ms (Views: 561.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/controllers/hello_controller" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/controllers/application" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/controllers/sidebar_controller" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/components/HabitCalendar" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/controllers/settings_controller" for ::1 at 2025-04-09 17:05:47 -0400
+Started GET "/assets/components/HabitStats" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/components/HabitList" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/controllers/theme_controller" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/components/DashboardHabits" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/components/HabitForm" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/components/HabitDetail" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/components/HabitLog" for ::1 at 2025-04-09 17:05:48 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:05:49 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:05:50 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:05:50 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:05:50 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:05:50 -0400
+Started GET "/login" for ::1 at 2025-04-09 17:05:52 -0400
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 48.2ms | GC: 0.0ms)
+  Rendered shared/_sidebar.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 55.3ms | GC: 0.0ms)
+Completed 200 OK in 1394ms (Views: 65.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:05:54 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:05:54 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:05:54 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:05:55 -0400
+Started GET "/assets/controllers/application" for ::1 at 2025-04-09 17:05:55 -0400
+Started GET "/assets/controllers/hello_controller" for ::1 at 2025-04-09 17:05:55 -0400
+Started GET "/assets/controllers/sidebar_controller" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/controllers/settings_controller" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/controllers/theme_controller" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/components/HabitForm" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/components/HabitList" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/components/HabitDetail" for ::1 at 2025-04-09 17:05:56 -0400
+Started GET "/assets/components/HabitLog" for ::1 at 2025-04-09 17:05:57 -0400
+Started GET "/assets/components/HabitCalendar" for ::1 at 2025-04-09 17:05:57 -0400
+Started GET "/assets/components/HabitStats" for ::1 at 2025-04-09 17:05:57 -0400
+Started GET "/assets/components/DashboardHabits" for ::1 at 2025-04-09 17:05:58 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:05:58 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:05:58 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:05:58 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:05:59 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:06:00 -0400
+Started POST "/login" for ::1 at 2025-04-09 17:06:09 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "username" => "Samiuddin", "password" => "[FILTERED]", "commit" => "Log In"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = 'Samiuddin' LIMIT 1 /*action='create',application='Habitflow',controller='sessions'*/[0m
+  ↳ app/controllers/sessions_controller.rb:7:in 'SessionsController#create'
+Redirected to http://[::1]:3000/profile
+Completed 302 Found in 2495ms (ActiveRecord: 7.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/profile" for ::1 at 2025-04-09 17:06:12 -0400
+Processing by ProfilesController#show as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='show',application='Habitflow',controller='profiles'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered profiles/show.html.erb within layouts/application (Duration: 5.1ms | GC: 0.0ms)
+  [1m[36mNotification Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."user_id" = 1 AND "notifications"."status" = 'pending' /*action='show',application='Habitflow',controller='profiles'*/[0m
+  ↳ app/views/shared/_sidebar.html.erb:47
+  Rendered shared/_sidebar.html.erb (Duration: 83.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 95.5ms | GC: 0.0ms)
+Completed 200 OK in 1483ms (Views: 105.5ms | ActiveRecord: 1.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:06:14 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:06:14 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:06:14 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:06:15 -0400
+Started GET "/assets/controllers/hello_controller" for ::1 at 2025-04-09 17:06:15 -0400
+Started GET "/assets/controllers/application" for ::1 at 2025-04-09 17:06:15 -0400
+Started GET "/assets/controllers/sidebar_controller" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/controllers/theme_controller" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/controllers/settings_controller" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/components/HabitForm" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/components/HabitList" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/components/HabitDetail" for ::1 at 2025-04-09 17:06:16 -0400
+Started GET "/assets/components/HabitLog" for ::1 at 2025-04-09 17:06:17 -0400
+Started GET "/assets/components/HabitCalendar" for ::1 at 2025-04-09 17:06:17 -0400
+Started GET "/assets/components/HabitStats" for ::1 at 2025-04-09 17:06:17 -0400
+Started GET "/assets/components/DashboardHabits" for ::1 at 2025-04-09 17:06:18 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:06:18 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:06:18 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:06:19 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:06:19 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:06:19 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:06:19 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:06:20 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:06:20 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:06:20 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:06:20 -0400
+Started GET "/" for ::1 at 2025-04-09 17:06:24 -0400
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in 'ApplicationController#current_user'
+  [1m[36mHabit Load (0.3ms)[0m  [1m[34mSELECT "habits".* FROM "habits" WHERE "habits"."user_id" = 1 ORDER BY "habits"."created_at" DESC /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:12:in 'Enumerable#max_by'
+  [1m[36mHabitLog Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mHabitLog Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/dashboard.html.erb within layouts/application
+  [1m[36mHabitLog Load (0.2ms)[0m  [1m[34mSELECT "habit_logs".* FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" = '2025-04-09' LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/views/pages/dashboard.html.erb:81
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Load (0.0ms)[0m  [1m[34mSELECT "habit_logs".* FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" = '2025-04-09' LIMIT 1[0m
+  ↳ app/views/pages/dashboard.html.erb:87
+  [1m[36mCACHE HabitLog Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  Rendered pages/dashboard.html.erb within layouts/application (Duration: 32.7ms | GC: 0.0ms)
+  [1m[36mNotification Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."user_id" = 1 AND "notifications"."status" = 'pending' /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/views/shared/_sidebar.html.erb:47
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 44.2ms | GC: 0.0ms)
+Completed 200 OK in 1478ms (Views: 47.6ms | ActiveRecord: 3.5ms (11 queries, 5 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:06:26 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:06:26 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:06:26 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/controllers/application" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/controllers/hello_controller" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/controllers/sidebar_controller" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/controllers/theme_controller" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/controllers/settings_controller" for ::1 at 2025-04-09 17:06:27 -0400
+Started GET "/assets/components/HabitForm" for ::1 at 2025-04-09 17:06:28 -0400
+Started GET "/assets/components/HabitList" for ::1 at 2025-04-09 17:06:28 -0400
+Started GET "/assets/components/HabitDetail" for ::1 at 2025-04-09 17:06:28 -0400
+Started GET "/assets/components/HabitLog" for ::1 at 2025-04-09 17:06:29 -0400
+Started GET "/assets/components/HabitCalendar" for ::1 at 2025-04-09 17:06:29 -0400
+Started GET "/assets/components/HabitStats" for ::1 at 2025-04-09 17:06:29 -0400
+Started GET "/assets/components/DashboardHabits" for ::1 at 2025-04-09 17:06:30 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:06:30 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:06:30 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:06:30 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:06:31 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:06:31 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:06:31 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:06:31 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:06:32 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:06:32 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:06:32 -0400
+Started GET "/" for ::1 at 2025-04-09 17:11:59 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Habitflow'*/[0m
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in 'ApplicationController#current_user'
+  [1m[36mHabit Load (0.2ms)[0m  [1m[34mSELECT "habits".* FROM "habits" WHERE "habits"."user_id" = 1 ORDER BY "habits"."created_at" DESC /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:12:in 'Enumerable#max_by'
+  [1m[36mHabitLog Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mHabitLog Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/dashboard.html.erb within layouts/application
+  [1m[36mHabitLog Load (0.2ms)[0m  [1m[34mSELECT "habit_logs".* FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" = '2025-04-09' LIMIT 1 /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/views/pages/dashboard.html.erb:81
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Load (0.0ms)[0m  [1m[34mSELECT "habit_logs".* FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" = '2025-04-09' LIMIT 1[0m
+  ↳ app/views/pages/dashboard.html.erb:87
+  [1m[36mCACHE HabitLog Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-04-01' AND '2025-04-30' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  [1m[36mCACHE HabitLog Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "habit_logs" WHERE "habit_logs"."habit_id" = 2 AND "habit_logs"."date" BETWEEN '2025-03-01' AND '2025-03-31' AND "habit_logs"."completed" = 1 LIMIT 1[0m
+  ↳ app/models/habit.rb:51:in 'Habit#current_streak'
+  Rendered pages/dashboard.html.erb within layouts/application (Duration: 26.2ms | GC: 0.0ms)
+  [1m[36mNotification Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."user_id" = 1 AND "notifications"."status" = 'pending' /*action='home',application='Habitflow',controller='pages'*/[0m
+  ↳ app/views/shared/_sidebar.html.erb:47
+  Rendered shared/_sidebar.html.erb (Duration: 17.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 114.1ms | GC: 0.0ms)
+Completed 200 OK in 2944ms (Views: 795.6ms | ActiveRecord: 7.7ms (11 queries, 5 cached) | GC: 0.9ms)
+
+
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:12:03 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:12:03 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:12:03 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/controllers/hello_controller" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/controllers/application" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/controllers/sidebar_controller" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/controllers/theme_controller" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/controllers/settings_controller" for ::1 at 2025-04-09 17:12:04 -0400
+Started GET "/assets/components/HabitForm" for ::1 at 2025-04-09 17:12:05 -0400
+Started GET "/assets/components/HabitList" for ::1 at 2025-04-09 17:12:05 -0400
+Started GET "/assets/components/HabitDetail" for ::1 at 2025-04-09 17:12:05 -0400
+Started GET "/assets/components/HabitLog" for ::1 at 2025-04-09 17:12:06 -0400
+Started GET "/assets/components/HabitCalendar" for ::1 at 2025-04-09 17:12:06 -0400
+Started GET "/assets/components/HabitStats" for ::1 at 2025-04-09 17:12:06 -0400
+Started GET "/assets/components/DashboardHabits" for ::1 at 2025-04-09 17:12:06 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:12:07 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:12:07 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:12:07 -0400
+Started GET "/assets/users.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/user_profile.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/sidebar.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/profile.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/theme.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/notifications.css" for ::1 at 2025-04-09 17:12:08 -0400
+Started GET "/assets/settings.css" for ::1 at 2025-04-09 17:12:09 -0400
