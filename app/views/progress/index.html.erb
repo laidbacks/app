@@ -12,7 +12,7 @@
     <div class="card overview-card">
       <div class="card-body">
         <h5 class="card-title">Average Completion Rate</h5>
-        <div class="card-value"><%= number_to_percentage(@average_completion_rate * 100, precision: 1) %></div>
+        <div class="card-value"><%= number_to_percentage(@average_completion_rate, precision: 1) %></div>
       </div>
     </div>
     
@@ -57,25 +57,25 @@
                 <td><span class="badge badge-best-streak"><%= habit[:best_streak] %> days</span></td>
                 <td>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate] * 100 %>%" 
-                         aria-valuenow="<%= habit[:completion_rate] * 100 %>" aria-valuemin="0" aria-valuemax="100">
-                      <%= number_to_percentage(habit[:completion_rate] * 100, precision: 0) %>
+                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate]  %>%" 
+                         aria-valuenow="<%= habit[:completion_rate]  %>" aria-valuemin="0" aria-valuemax="100">
+                      <%= number_to_percentage(habit[:completion_rate] , precision: 0) %>
                     </div>
                   </div>
                 </td>
                 <td>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate_7_days] * 100 %>%" 
-                         aria-valuenow="<%= habit[:completion_rate_7_days] * 100 %>" aria-valuemin="0" aria-valuemax="100">
-                      <%= number_to_percentage(habit[:completion_rate_7_days] * 100, precision: 0) %>
+                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate_7_days]  %>%" 
+                         aria-valuenow="<%= habit[:completion_rate_7_days] %>" aria-valuemin="0" aria-valuemax="100">
+                      <%= number_to_percentage(habit[:completion_rate_7_days], precision: 0) %>
                     </div>
                   </div>
                 </td>
                 <td>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate_30_days] * 100 %>%" 
-                         aria-valuenow="<%= habit[:completion_rate_30_days] * 100 %>" aria-valuemin="0" aria-valuemax="100">
-                      <%= number_to_percentage(habit[:completion_rate_30_days] * 100, precision: 0) %>
+                    <div class="progress-bar" role="progressbar" style="width: <%= habit[:completion_rate_30_days]  %>%" 
+                         aria-valuenow="<%= habit[:completion_rate_30_days] %>" aria-valuemin="0" aria-valuemax="100">
+                      <%= number_to_percentage(habit[:completion_rate_30_days], precision: 0) %>
                     </div>
                   </div>
                 </td>
@@ -132,21 +132,21 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [
           {
             label: 'Overall',
-            data: <%= raw @progress_data.map { |h| (h[:completion_rate] * 100).round(1) }.to_json %>,
+            data: <%= raw @progress_data.map { |h| (h[:completion_rate]).round(1) }.to_json %>,
             backgroundColor: 'rgba(99, 102, 241, 0.7)',
             borderColor: 'rgba(99, 102, 241, 1)',
             borderWidth: 1
           },
           {
             label: 'Last 7 Days',
-            data: <%= raw @progress_data.map { |h| (h[:completion_rate_7_days] * 100).round(1) }.to_json %>,
+            data: <%= raw @progress_data.map { |h| (h[:completion_rate_7_days] ).round(1) }.to_json %>,
             backgroundColor: 'rgba(52, 211, 153, 0.7)',
             borderColor: 'rgba(52, 211, 153, 1)',
             borderWidth: 1
           },
           {
             label: 'Last 30 Days',
-            data: <%= raw @progress_data.map { |h| (h[:completion_rate_30_days] * 100).round(1) }.to_json %>,
+            data: <%= raw @progress_data.map { |h| (h[:completion_rate_30_days] ).round(1) }.to_json %>,
             backgroundColor: 'rgba(251, 191, 36, 0.7)',
             borderColor: 'rgba(251, 191, 36, 1)',
             borderWidth: 1

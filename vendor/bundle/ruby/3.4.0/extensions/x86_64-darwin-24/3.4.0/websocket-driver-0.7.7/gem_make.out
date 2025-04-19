@@ -1,0 +1,18 @@
+current directory: /Users/behruz/Development/Laidbacks/app/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
+/Users/behruz/.local/share/mise/installs/ruby/3.4.1/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/behruz/Development/Laidbacks/app/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250419-33578-kb6cdg sitelibdir\=./.gem.20250419-33578-kb6cdg clean
+
+current directory: /Users/behruz/Development/Laidbacks/app/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250419-33578-kb6cdg sitelibdir\=./.gem.20250419-33578-kb6cdg
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+
+current directory: /Users/behruz/Development/Laidbacks/app/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250419-33578-kb6cdg sitelibdir\=./.gem.20250419-33578-kb6cdg install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20250419-33578-kb6cdg
+
+current directory: /Users/behruz/Development/Laidbacks/app/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250419-33578-kb6cdg sitelibdir\=./.gem.20250419-33578-kb6cdg clean
