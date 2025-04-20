@@ -6,6 +6,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.require_master_key = false
+
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 
